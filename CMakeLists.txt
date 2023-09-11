@@ -8,5 +8,8 @@ find_package(glfw3 3.3 REQUIRED)
 
 include_directories("glad/include")
 
-add_executable(sim_engine main.cpp "glad/src/glad.c")
+add_executable(sim_engine main.cpp
+        Shader.cpp
+        Shader.h
+        "glad/src/glad.c")
 target_link_libraries(sim_engine glfw)

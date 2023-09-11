@@ -1,73 +1,24 @@
 #include <iostream>
+#include <cmath>
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
 
-static constexpr const char* WINDOW_TITLE = "Sim Engine";
+#include "Shader.h"
+
+const char* WINDOW_TITLE = "Sim Engine";
 constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;
-constexpr bool WIREFRAME_MODE = true;
+constexpr bool WIREFRAME_MODE = false;
 constexpr float CLEAR_COLOR[] = {0.2f, 0.3f, 0.3f, 1.0f};
 
-const char* vertexShaderSource = "#version 330 core\n"
-                                 "layout (location = 0) in vec3 aPos;\n"
-                                 "void main()\n"
-                                 "{\n"
-                                 "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-                                 "}\0";
-const char* fragmentShaderSource = "#version 330 core\n"
-                                   "out vec4 FragColor;\n"
-                                   "void main()\n"
-                                   "{\n"
-                                   "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-                                   "}\n\0";
+const char* vertexShaderPath = "../shaders/VertexShader.vert";
+const char* fragmentShaderPath = "../shaders/FragmentShader.frag";
 
 void framebuffer_size_callback([[maybe_unused]] GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
 void processInput([[maybe_unused]] GLFWwindow* window) { }
-
-int createShader(GLenum shaderType, const char* shaderSource, unsigned int& outShader) {
-    unsigned int shader = glCreateShader(shaderType);
-    glShaderSource(shader, 1, &shaderSource, nullptr);
-    glCompileShader(shader);
-
-    const int infoLogLength = 512;
-    int success;
-    char infoLog[infoLogLength];
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        glGetShaderInfoLog(shader, infoLogLength, nullptr, infoLog);
-        std::cerr << "Failed to compile shader\n" << infoLog << std::endl;
-        return -1;
-    }
-
-    outShader = shader;
-    return 0;
-}
-
-// Will delete vertex and fragment shader once linked (as they are no longer needed)
-int createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader, unsigned int& outProgram) {
-    unsigned int shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-
-    const int infoLogLength = 512;
-    int success;
-    char infoLog[infoLogLength];
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-    if (!success) {
-        glGetProgramInfoLog(shaderProgram, infoLogLength, nullptr, infoLog);
-        std::cerr << "Failed to link shader program\n" << infoLog << std::endl;
-        return -1;
-    }
-
-    outProgram = shaderProgram;
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-    return 0;
-}
 
 int main() {
     glfwInit();
@@ -94,20 +45,8 @@ int main() {
     glViewport(0, 0, 1280, 720);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    unsigned int vertexShader;
-    if (createShader(GL_VERTEX_SHADER, vertexShaderSource, vertexShader) == -1) {
-        glfwTerminate();
-        return -1;
-    }
-
-    unsigned int fragmentShader;
-    if (createShader(GL_FRAGMENT_SHADER, fragmentShaderSource, fragmentShader) == -1) {
-        glfwTerminate();
-        return -1;
-    }
-
-    unsigned int shaderProgram;
-    if (createShaderProgram(vertexShader, fragmentShader, shaderProgram) == -1) {
+    Shader shader {vertexShaderPath, fragmentShaderPath};
+    if (!shader.wasCompiledSuccessfully()) {
         glfwTerminate();
         return -1;
     }
@@ -153,7 +92,11 @@ int main() {
         glClearColor(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shaderProgram);
+        shader.activate();
+        double time = glfwGetTime();
+        double greenValue = sin(time) / 2.0 + 0.5;
+        shader.setUniform("color", 0.0f, greenValue, 0.0f, 1.0f);
+
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, nullptr);
 
@@ -164,8 +107,8 @@ int main() {
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
-    glDeleteProgram(shaderProgram);
 
+    shader.~Shader();  // Needs to be cleaned up before GL context is terminated
     glfwTerminate();
     return 0;
 }
