@@ -3,6 +3,7 @@
 
 #include <string>
 #include "glad/glad.h"
+#include "glm/ext/matrix_float4x4.hpp"
 
 class Shader {
 public:
@@ -14,6 +15,7 @@ public:
     void setUniform(const std::string& name, int value) const;
     void setUniform(const std::string& name, float value) const;
     void setUniform(const std::string& name, float x, float y, float z, float w) const;
+    void setUniform(const std::string& name, glm::mat4& matrix) const;
 
     [[nodiscard]] unsigned int getID() const;
     [[nodiscard]] bool wasCompiledSuccessfully() const;

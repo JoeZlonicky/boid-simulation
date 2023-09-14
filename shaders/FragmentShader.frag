@@ -2,9 +2,13 @@
 
 out vec4 FragColor;
 
-uniform vec4 color;
+in vec2 texCoord;
+
+uniform sampler2D sprite;
+uniform float time;
 
 void main()
 {
+    vec4 color = texture(sprite, texCoord);
     FragColor = color;
 }

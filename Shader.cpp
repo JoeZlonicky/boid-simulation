@@ -5,6 +5,7 @@
 #include <cassert>
 
 #include "glad/glad.h"
+#include "glm/gtc/type_ptr.hpp"
 
 Shader::Shader(const char* vertexShaderPath, const char* fragmentShaderPath) : id(0) {
     unsigned int vertexShader;
@@ -50,6 +51,11 @@ void Shader::setUniform(const std::string &name, float value) const {
 void Shader::setUniform(const std::string & name, float x, float y, float z, float w) const {
     glUniform4f(glGetUniformLocation(id, name.c_str()), x, y, z, w);
 }
+
+void Shader::setUniform(const std::string & name, glm::mat4 & matrix) const {
+    glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
 
 unsigned int Shader::getID() const {
     return id;
