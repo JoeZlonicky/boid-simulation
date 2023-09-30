@@ -1,4 +1,4 @@
-# Sim Engine
+# IK Demo
 My progress making an inverse kinematics demo with OpenGL.
 
 ## GLFW Set-up (For Linux)
