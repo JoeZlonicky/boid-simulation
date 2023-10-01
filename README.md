@@ -1,4 +1,5 @@
-# Sim Engine
+# IK Demo
+My progress making an inverse kinematics demo with OpenGL.
 
 ## GLFW Set-up (For Linux)
 1. Download GLFW source (https://www.glfw.org/download)
