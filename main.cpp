@@ -4,7 +4,7 @@
 
 #include "shader.h"
 #include "window.h"
-#include "model.h"
+#include "limb.h"
 #include "camera.h"
 
 constexpr int WINDOW_WIDTH = 1280;
@@ -21,14 +21,14 @@ int main() {
 
     Shader shader{};
     try {
-        shader.create("../assets/shaders/default_vertex_shader.vert",
-                      "../assets/shaders/default_fragment_shader.frag");
+        shader.create("../shaders/default_vertex_shader.vert",
+                      "../shaders/default_fragment_shader.frag");
     } catch (const std::runtime_error& e) {
         std::cerr << e.what() << std::endl;
         return 1;
     }
 
-    Model cube{};
+    Limb cube{};
     try {
         cube.load();
     } catch (const std::runtime_error& e) {
@@ -41,7 +41,7 @@ int main() {
                    (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT};
 
     //cube.rotateX(45.0f);
-    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     auto lastFrameTime = static_cast<float>(glfwGetTime());
 
@@ -59,6 +59,18 @@ int main() {
         shader.setUniform("projection_view", camera.getProjectionViewMatrix());
 
         window.clear();
+
+        glDisable(GL_POLYGON_OFFSET_FILL);
+        shader.setUniform("color", 0.4, 0.0, 0.0, 1.0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        cube.draw();
+
+        shader.setUniform("color", 1.0, 0.0, 0.0, 1.0);
+        glLineWidth(2.0f);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glPolygonOffset(2.0f, 2.0f);
+        cube.draw();
+
         cube.draw();
         window.refresh();
 
