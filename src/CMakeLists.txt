@@ -12,7 +12,6 @@ add_executable(ik-demo
         "camera.cpp"
         "camera.h"
         "vector3.h"
-        "vector3.cpp"
         "quaternion.h"
         "../external/glad/src/glad.c"
 )

@@ -1,5 +1,6 @@
 enable_testing()
 add_executable(ik-demo-tests
+        "../src/vector3.h"
         "test_vector3.cpp"
         "main.cpp"
 )
