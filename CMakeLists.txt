@@ -10,23 +10,12 @@ set(GLFW_BUILD_TESTS OFF)
 set(GLFW_BUILD_DOCS OFF)
 add_subdirectory("external/glfw")
 
-include_directories("external/glm")
-include_directories("external/glad/include")
+include_directories("${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR}")
+add_subdirectory("external/googletest")
 
-add_executable(ik-demo
-        "src/main.cpp"
-        "src/shader.cpp"
-        "src/shader.h"
-        "src/window.cpp"
-        "src/window.h"
-        "src/limb.cpp"
-        "src/limb.h"
-        "src/camera.cpp"
-        "src/camera.h"
-        "src/math/vector3.h"
-        "src/math/vector3.cpp"
-        "src/math/quaternion.h"
-        "external/glad/src/glad.c"
-)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+include_directories("src")
+add_subdirectory("src")
+add_subdirectory("tests")
 
-target_link_libraries(ik-demo glfw OpenGL)
+file(COPY shaders DESTINATION ${CMAKE_BINARY_DIR})

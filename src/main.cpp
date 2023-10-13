@@ -21,8 +21,8 @@ int main() {
 
     Shader shader{};
     try {
-        shader.create("../shaders/default_vertex_shader.vert",
-                      "../shaders/default_fragment_shader.frag");
+        shader.create("shaders/default_vertex_shader.vert",
+                      "shaders/default_fragment_shader.frag");
     } catch (const std::runtime_error& e) {
         std::cerr << e.what() << std::endl;
         return 1;
