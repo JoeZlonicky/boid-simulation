@@ -3,12 +3,18 @@ project(ik-demo)
 
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(OpenGL)
+find_package(OpenGL REQUIRED)
 
-include_directories("external/include")
+set(GLFW_BUILD_EXAMPLES OFF)
+set(GLFW_BUILD_TESTS OFF)
+set(GLFW_BUILD_DOCS OFF)
+add_subdirectory("external/glfw")
+
+include_directories("external/glm")
+include_directories("external/glad/include")
 
 add_executable(ik-demo main.cpp
-        "external/src/glad.c"
+        "external/glad/src/glad.c"
         shader.cpp
         shader.h
         window.cpp
@@ -22,4 +28,4 @@ add_executable(ik-demo main.cpp
         math/quaternion.h
 )
 
-target_link_libraries(ik-demo X11 "${CMAKE_SOURCE_DIR}/external/lib/GLFW/libglfw3.a")
+target_link_libraries(ik-demo glfw OpenGL)
