@@ -1,7 +1,6 @@
 #include <iostream>
 #include "glad/glad.h"  // Needs to be included before GLFW
 #include <GLFW/glfw3.h>
-#include "gtest/gtest.h"
 
 #include "shader.h"
 #include "window.h"

@@ -4,7 +4,6 @@ project(ik-demo)
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(OpenGL)
-find_package(glfw3 3.3 REQUIRED)
 
 include_directories("external/include")
 
@@ -23,4 +22,4 @@ add_executable(ik-demo main.cpp
         math/quaternion.h
 )
 
-target_link_libraries(ik-demo glfw)
+target_link_libraries(ik-demo X11 "${CMAKE_SOURCE_DIR}/external/lib/GLFW/libglfw3.a")
