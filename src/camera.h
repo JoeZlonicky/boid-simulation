@@ -1,5 +1,5 @@
-#ifndef SIM_ENGINE_CAMERA_H_
-#define SIM_ENGINE_CAMERA_H_
+#ifndef IK_DEMO_CAMERA_H_
+#define IK_DEMO_CAMERA_H_
 
 #include "glm/vec3.hpp"
 #include "glm/ext/matrix_float4x4.hpp"

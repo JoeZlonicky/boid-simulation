@@ -3,14 +3,21 @@
 
 #include <cmath>
 
-// Based off the vector implementation in Foundation of Game Engine Development, Volume 1: Mathematics by Eric Lengyel
+// Implementation takes inspiration from
+// 1) Foundation of Game Engine Development, Volume 1: Mathematics by Eric Lengyel
+// 2) Godot Game Engine source code
 struct Vector3 {
-    float x;
-    float y;
-    float z;
+    union {
+        struct {
+            float x;
+            float y;
+            float z;
+        };
+        float components[3] = {0.0f};
+    };
 
-    Vector3() = default;
-    Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
+    Vector3();
+    Vector3(float x, float y, float z);
 
     float& operator[](int i);
     const float& operator[](int i) const;

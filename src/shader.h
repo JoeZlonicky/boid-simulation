@@ -1,5 +1,5 @@
-#ifndef SIM_ENGINE_SHADER_H
-#define SIM_ENGINE_SHADER_H
+#ifndef IK_DEMO_SHADER_H
+#define IK_DEMO_SHADER_H
 
 #include <string>
 #include "glad/glad.h"

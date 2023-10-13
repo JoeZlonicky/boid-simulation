@@ -1,5 +1,5 @@
-#ifndef SIM_ENGINE_LIMB_H_
-#define SIM_ENGINE_LIMB_H_
+#ifndef IK_DEMO_LIMB_H_
+#define IK_DEMO_LIMB_H_
 
 #include <string>
 #include "glm/mat4x4.hpp"

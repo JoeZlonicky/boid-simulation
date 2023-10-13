@@ -1,5 +1,5 @@
-#ifndef SIM_ENGINE_WINDOW_H
-#define SIM_ENGINE_WINDOW_H
+#ifndef IK_DEMO_WINDOW_H
+#define IK_DEMO_WINDOW_H
 
 #include <string>
 

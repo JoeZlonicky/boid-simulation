@@ -1,11 +1,16 @@
 #include "vector3.h"
 
+
+Vector3::Vector3() : x(0.0f), y(0.0f), z(0.0f) {}
+
+Vector3::Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
+
 inline float& Vector3::operator[](int i) {
-    return ((&x)[i]);
+    return components[i];
 }
 
 inline const float& Vector3::operator[](int i) const {
-    return ((&x)[i]);
+    return components[i];
 }
 
 inline Vector3& Vector3::operator*=(float s) {
