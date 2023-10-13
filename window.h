@@ -12,6 +12,8 @@ public:
     void clear() ;
     void refresh() const;
 
+    void resize(int width, int height);
+
     [[nodiscard]] bool shouldKeepOpen() const;
     [[nodiscard]] int getWidth() const { return width_; };
     [[nodiscard]] int getHeight() const { return height_; };

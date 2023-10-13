@@ -10,7 +10,6 @@ include_directories("external/include")
 
 add_executable(ik-demo main.cpp
         "external/src/glad.c"
-        "external/src/stb_image.cpp"
         shader.cpp
         shader.h
         window.cpp
@@ -19,6 +18,9 @@ add_executable(ik-demo main.cpp
         limb.h
         camera.cpp
         camera.h
+        math/vector3.h
+        math/vector3.cpp
+        math/quaternion.h
 )
 
 target_link_libraries(ik-demo glfw)

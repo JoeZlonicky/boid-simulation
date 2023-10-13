@@ -1,6 +1,7 @@
 #include <iostream>
 #include "glad/glad.h"  // Needs to be included before GLFW
 #include <GLFW/glfw3.h>
+#include "gtest/gtest.h"
 
 #include "shader.h"
 #include "window.h"
@@ -40,38 +41,19 @@ int main() {
                    {0.0, 0.0, 0.0},
                    (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT};
 
-    //cube.rotateX(45.0f);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //cube.rotateX(3.141f / 4.0f);
 
     auto lastFrameTime = static_cast<float>(glfwGetTime());
-
     while (window.shouldKeepOpen()) {
         auto currentFrameTime = static_cast<float>(glfwGetTime());
         float deltaTime = currentFrameTime - lastFrameTime;
         lastFrameTime = currentFrameTime;
-
+        //cube.rotateX(deltaTime);
         cube.rotateY(deltaTime);
-        cube.rotateZ(deltaTime);
-
-        shader.activate();
-        shader.setUniform("time", currentFrameTime);
-        shader.setUniform("model", cube.getTransform());
-        shader.setUniform("projection_view", camera.getProjectionViewMatrix());
+        //cube.rotateZ(deltaTime);
 
         window.clear();
-
-        glDisable(GL_POLYGON_OFFSET_FILL);
-        shader.setUniform("color", 0.4, 0.0, 0.0, 1.0);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        cube.draw();
-
-        shader.setUniform("color", 1.0, 0.0, 0.0, 1.0);
-        glLineWidth(2.0f);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glPolygonOffset(2.0f, 2.0f);
-        cube.draw();
-
-        cube.draw();
+        cube.draw(shader, camera.getProjectionViewMatrix());
         window.refresh();
 
         glfwPollEvents();

@@ -21,7 +21,7 @@ void Window::init(const std::string & title, const int width, const int height) 
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-  glfw_window_ = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+    glfw_window_ = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
     if (glfw_window_ == nullptr) {
         glfwTerminate();
         throw std::runtime_error("Failed to load GLFW window");
@@ -35,9 +35,14 @@ void Window::init(const std::string & title, const int width, const int height) 
 
     glViewport(0, 0, width, height);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_POLYGON_OFFSET_FILL);
 
-    //glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    //glfwSetScrollCallback(window, scrollCallback);
+    glfwSetWindowUserPointer(glfw_window_, this);
+    auto onManualResize = [](GLFWwindow* glfwWindow, int width, int height) {
+        auto* window = static_cast<Window*>(glfwGetWindowUserPointer(glfwWindow));
+        window->resize(width, height);
+    };
+    glfwSetFramebufferSizeCallback(glfw_window_, onManualResize);
 }
 
 void Window::clear() {
@@ -51,4 +56,10 @@ void Window::refresh() const {
 
 bool Window::shouldKeepOpen() const {
     return glfwWindowShouldClose(glfw_window_) == false;
+}
+
+void Window::resize(int width, int height) {
+    width_ = width;
+    height_ = height;
+    glViewport(0, 0, width, height);
 }
