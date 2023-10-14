@@ -42,14 +42,14 @@ int main() {
 
     //cube.rotateX(3.141f / 4.0f);
 
-    auto lastFrameTime = static_cast<float>(glfwGetTime());
+    auto last_frame_time = static_cast<float>(glfwGetTime());
     while (window.shouldKeepOpen()) {
-        auto currentFrameTime = static_cast<float>(glfwGetTime());
-        float deltaTime = currentFrameTime - lastFrameTime;
-        lastFrameTime = currentFrameTime;
-        //cube.rotateX(deltaTime);
-        cube.rotateY(deltaTime);
-        //cube.rotateZ(deltaTime);
+        auto current_frame_time = static_cast<float>(glfwGetTime());
+        float delta_time = current_frame_time - last_frame_time;
+        last_frame_time = current_frame_time;
+        //cube.rotateX(delta_time);
+        cube.rotateY(delta_time);
+        //cube.rotateZ(delta_time);
 
         window.clear();
         cube.draw(shader, camera.getProjectionViewMatrix());
