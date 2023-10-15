@@ -2,7 +2,7 @@
 #define IK_DEMO_CAMERA_H_
 
 #include "glm/ext/matrix_float4x4.hpp"
-#include "vector3.h"
+#include "math/vector_3.h"
 
 class Camera {
 public:

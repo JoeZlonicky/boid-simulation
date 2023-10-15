@@ -2,10 +2,10 @@
 #include "glad/glad.h"  // Needs to be included before GLFW
 #include <GLFW/glfw3.h>
 
-#include "shader.h"
-#include "window.h"
+#include "engine/shader.h"
+#include "engine/window.h"
 #include "limb.h"
-#include "camera.h"
+#include "engine/camera.h"
 
 constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;

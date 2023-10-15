@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 #include "glad/glad.h"
-#include "shader.h"
+#include "engine/shader.h"
 
 
 Limb::~Limb() {

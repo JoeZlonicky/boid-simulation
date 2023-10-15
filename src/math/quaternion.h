@@ -2,7 +2,7 @@
 #define IK_DEMO_QUATERNION_H_
 
 #include <cmath>
-#include "vector3.h"
+#include "vector_3.h"
 
 // Implementation takes inspiration from
 // 1) Foundation of Game Engine Development, Volume 1: Mathematics by Eric Lengyel

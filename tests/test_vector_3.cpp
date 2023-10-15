@@ -1,13 +1,8 @@
-#include "vector3.h"
+#include "math/vector_3.h"
 
 #include <gtest/gtest.h>
 #include <cmath>
-
-void assertVectorValues(const Vector3& v, float x, float y, float z) {
-    ASSERT_FLOAT_EQ(v.x, x);
-    ASSERT_FLOAT_EQ(v.y, y);
-    ASSERT_FLOAT_EQ(v.z, z);
-}
+#include "testing_utility.h"
 
 TEST(Vector3, DefaultConstruction) {
     Vector3 v;

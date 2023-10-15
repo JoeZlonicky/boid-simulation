@@ -3,19 +3,20 @@ include_directories("../external/glad/include")
 
 add_executable(ik-demo
         "main.cpp"
-        "shader.cpp"
-        "shader.h"
-        "window.cpp"
-        "window.h"
+        "engine/shader.cpp"
+        "engine/shader.h"
+        "engine/window.cpp"
+        "engine/window.h"
         "limb.cpp"
         "limb.h"
-        "camera.cpp"
-        "camera.h"
-        "vector3.h"
-        "quaternion.h"
+        "engine/camera.cpp"
+        "engine/camera.h"
+        "math/vector_3.h"
+        "math/quaternion.h"
         "../external/glad/src/glad.c"
-        matrix4.cpp
-        matrix4.h
+        math/matrix_4.h
+        math/vector_4.h
+        math/point_3.h
 )
 
 target_link_libraries(ik-demo glfw OpenGL)

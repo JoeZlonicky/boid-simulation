@@ -1,5 +1,5 @@
-#ifndef IK_DEMO_VECTOR3_H_
-#define IK_DEMO_VECTOR3_H_
+#ifndef IK_DEMO_VECTOR_3_H_
+#define IK_DEMO_VECTOR_3_H_
 
 #include <cmath>
 
