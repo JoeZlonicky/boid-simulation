@@ -36,20 +36,22 @@ int main() {
         return 1;
     }
 
-    Camera camera {{0.0, 0.0, 3.0},
+    Camera camera {{0.0, 0.0, 10.0},
                    {0.0, 0.0, 0.0},
                    (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT};
 
-    //cube.rotateX(3.141f / 4.0f);
+    Vector3 camPosition {0.0f, 0.0f, 10.0f};
 
     auto last_frame_time = static_cast<float>(glfwGetTime());
     while (window.shouldKeepOpen()) {
         auto current_frame_time = static_cast<float>(glfwGetTime());
         float delta_time = current_frame_time - last_frame_time;
         last_frame_time = current_frame_time;
-        //cube.rotateX(delta_time);
+
+        camPosition.x = std::cos(current_frame_time) * 10.0f;
+        camera.setPos(camPosition);
+
         cube.rotateY(delta_time);
-        //cube.rotateZ(delta_time);
 
         window.clear();
         cube.draw(shader, camera.getProjectionViewMatrix());

@@ -36,8 +36,8 @@ struct Vector3 {
 
     void normalize();
     [[nodiscard]] Vector3 normalized() const;
-
     [[nodiscard]] float magnitude() const;
+    [[nodiscard]] Vector3 cross(const Vector3& v) const;
 };
 
 inline Vector3 Vector3::operator*(float s) const {
@@ -106,6 +106,12 @@ inline Vector3 Vector3::normalized() const {
 
 inline float Vector3::magnitude() const {
     return (std::sqrt(x * x + y * y + z * z));
+}
+
+inline Vector3 Vector3::cross(const Vector3 &v) const {
+    return {y * v.z - z * v.y,
+            z * v.x - x * v.z,
+            x * v.y - y * v.x};
 }
 
 #endif

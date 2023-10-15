@@ -78,3 +78,10 @@ TEST(Vector3, Normalize) {
     v.normalize();
     ASSERT_FLOAT_EQ(v.magnitude(), 1.0f);
 }
+
+TEST(Vector3, CrossProduct) {
+    Vector3 v1 {1.0f, 0.0f, 0.0f};
+    Vector3 v2 {0.0f, 1.0f, 0.0f};
+    Vector3 v3 = v1.cross(v2);
+    assertVectorValues(v3, 0.0f, 0.0f, 1.0f);
+}

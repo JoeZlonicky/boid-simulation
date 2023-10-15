@@ -14,6 +14,8 @@ add_executable(ik-demo
         "vector3.h"
         "quaternion.h"
         "../external/glad/src/glad.c"
+        matrix4.cpp
+        matrix4.h
 )
 
 target_link_libraries(ik-demo glfw OpenGL)
