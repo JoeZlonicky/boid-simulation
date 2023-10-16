@@ -12,7 +12,12 @@ public:
     void setPosX(float x);
     void setPosY(float y);
     void setPosZ(float z);
+
     void setTarget(Vector3 target);
+    void setFOV(float degrees);
+    void setNearPlane(float d);
+    void setFarPlane(float d);
+    void setAspectRatio(float ratio);
 
     const Matrix4& getProjectionViewMatrix();
     const Vector3& getPos();
@@ -23,7 +28,9 @@ private:
     bool dirtyMatrixFlag = false;
     Vector3 pos_;
     Vector3 target_;
-    float fov_;
+    float fov_degrees_ = 45.0f;
+    float near_plane_ = 0.1f;
+    float far_plane_ = 100.f;
     float aspect_ratio_;
 
     Matrix4 projection_view_matrix_ = {};

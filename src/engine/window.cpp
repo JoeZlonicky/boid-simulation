@@ -62,4 +62,10 @@ void Window::resize(int width, int height) {
     width_ = width;
     height_ = height;
     glViewport(0, 0, width, height);
+    camera_->setAspectRatio(static_cast<float>(width_) / static_cast<float>(height_));
+}
+
+void Window::setCamera(Camera *camera) {
+    camera_ = camera;
+    camera_->setAspectRatio(static_cast<float>(width_) / static_cast<float>(height_));
 }

@@ -39,6 +39,7 @@ int main() {
     Camera camera {{0.f, 0.f, 10.f},
                    {0.f, 0.f, 0.f},
                    (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT};
+    window.setCamera(&camera);
 
     auto last_frame_time = static_cast<float>(glfwGetTime());
     while (window.shouldKeepOpen()) {
