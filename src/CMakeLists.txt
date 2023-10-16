@@ -1,4 +1,3 @@
-include_directories("../external/glm")
 include_directories("../external/glad/include")
 
 add_executable(ik-demo

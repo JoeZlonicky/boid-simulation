@@ -10,6 +10,10 @@ Limb::~Limb() {
     glDeleteBuffers(1, &vbo_);
 }
 
+const Matrix4 &Limb::getTransform() const {
+    return transform_;
+}
+
 void Limb::load() {
     float vertices[] = {
         0.0f, -0.25f, -0.25f,
@@ -71,7 +75,7 @@ void Limb::load() {
 }
 
 
-void Limb::draw(Shader& shader, glm::mat4 projectionViewMatrix) const {
+void Limb::draw(Shader& shader, const Matrix4& projectionViewMatrix) const {
     shader.activate();
     shader.setUniform("model", getTransform());
     shader.setUniform("projection_view", projectionViewMatrix);

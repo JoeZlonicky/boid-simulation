@@ -14,6 +14,12 @@ TEST(Vector4, ValueConstruction) {
     assertVectorValues(v, 1.0f, 2.0f, 3.0f, 4.0f);
 }
 
+TEST(Vector4, CopyConstruction) {
+    Vector4 v1 {1.0f, 2.0f, 3.0f, 4.0f};
+    Vector4 v2 {v1};
+    assertVectorValues(v2, 1.0f, 2.0f, 3.0f, 4.0f);
+}
+
 TEST(Vector4, PropertyAssignment) {
     Vector4 v;
     v.x = 1.0f;

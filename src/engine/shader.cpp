@@ -2,8 +2,6 @@
 
 #include <iostream>
 #include <fstream>
-#include "glad/glad.h"
-#include "glm/gtc/type_ptr.hpp"
 
 Shader::~Shader() {
     if (id_ != 0) {
@@ -44,8 +42,8 @@ void Shader::setUniform(const std::string & name, float x, float y, float z, flo
     glUniform4f(glGetUniformLocation(id_, name.c_str()), x, y, z, w);
 }
 
-void Shader::setUniform(const std::string & name, const glm::mat4 &matrix) const {
-    glUniformMatrix4fv(glGetUniformLocation(id_, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
+void Shader::setUniform(const std::string & name, const Matrix4& matrix) const {
+    glUniformMatrix4fv(glGetUniformLocation(id_, name.c_str()), 1, GL_FALSE, &matrix[0].x);
 }
 
 std::string Shader::readFromFile(const std::string& file_path) {

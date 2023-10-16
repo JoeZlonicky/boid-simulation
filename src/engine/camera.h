@@ -1,8 +1,8 @@
 #ifndef IK_DEMO_CAMERA_H_
 #define IK_DEMO_CAMERA_H_
 
-#include "glm/ext/matrix_float4x4.hpp"
 #include "math/vector_3.h"
+#include "math/matrix_4.h"
 
 class Camera {
 public:
@@ -11,7 +11,7 @@ public:
     void setPos(Vector3 pos);
     void setTarget(Vector3 target);
 
-    const glm::mat4& getProjectionViewMatrix();
+    const Matrix4& getProjectionViewMatrix();
 
 private:
     void calculateProjectionViewMatrix();
@@ -21,7 +21,7 @@ private:
     float fov_;
     float aspect_ratio_;
 
-    glm::mat4 projection_view_matrix_ = glm::mat4();
+    Matrix4 projection_view_matrix_ = {};
 };
 
 #endif

@@ -1,8 +1,6 @@
 #include "camera.h"
 
-#include "glm/geometric.hpp"
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
+#include <cmath>
 
 Camera::Camera(Vector3 pos, Vector3 target, float aspect_ratio) : pos_(pos), target_(target), aspect_ratio_(aspect_ratio), fov_(45.0f) {
     calculateProjectionViewMatrix();
@@ -18,7 +16,7 @@ void Camera::setTarget(Vector3 target) {
     calculateProjectionViewMatrix();
 }
 
-const glm::mat4 &Camera::getProjectionViewMatrix() {
+const Matrix4 & Camera::getProjectionViewMatrix() {
     return projection_view_matrix_;
 }
 
@@ -32,16 +30,26 @@ void Camera::calculateProjectionViewMatrix() {
     const float near_plane = 0.1f;
     const float far_plane = 100.0f;
 
-    glm::mat4 view = glm::mat4(right.x, up.x, to_camera.x, 0.0f,
-                               right.y, up.y, to_camera.y, 0.0f,
-                               right.z, up.z, to_camera.z, 0.0f,
-                               0.0f, 0.0f, 0.0f, 1.0f);
-    view *= glm::mat4(1.0f, 0.0f, 0.0f, 0.0f,
-                      0.0f, 1.0f, 0.0f, 0.0f,
-                      0.0f, 0.0f, 1.0f, 0.0f,
-                      -pos_.x, -pos_.y, -pos_.z, 1.0f);
+    Matrix4 view = Matrix4{
+        right.x, right.y, right.z, 0.0f,
+        up.x, up.y, up.z, 0.0f,
+        to_camera.x, to_camera.y, to_camera.z, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f}
+        * Matrix4{
+            1.0f, 0.0f, 0.0f, -pos_.x,
+            0.0f, 1.0f, 0.0f, -pos_.y,
+            0.0f, 0.0f, 1.0f, -pos_.z,
+            0.f, 0.f, 0.f, 1.0f};
 
-    glm::mat4 projection;
-    projection = glm::perspective(glm::radians(fov_), aspect_ratio_, near_plane, far_plane);
+    Matrix4 projection = Matrix4{0.f};
+    float fov_radians = (fov_ / 180.f) * static_cast<float>(M_PI);
+    float tan_half_fov = std::tan(fov_radians / 2.0f);
+    projection(0, 0) = 1.f / (aspect_ratio_ * tan_half_fov);
+    projection(1, 1) = 1.f / tan_half_fov;
+    projection(2, 2) = -(far_plane + near_plane) / (far_plane - near_plane);
+    projection(3, 2) = -1.f;
+    projection(2, 3) = -(2.f * far_plane * near_plane) / (far_plane - near_plane);
+
     projection_view_matrix_ = projection * view;
+
 }

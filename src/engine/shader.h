@@ -3,7 +3,7 @@
 
 #include <string>
 #include "glad/glad.h"
-#include "glm/ext/matrix_float4x4.hpp"
+#include "math/matrix_4.h"
 
 class Shader {
 public:
@@ -15,7 +15,7 @@ public:
     void setUniform(const std::string& name, int value) const;
     void setUniform(const std::string& name, float value) const;
     void setUniform(const std::string& name, float x, float y, float z, float w) const;
-    void setUniform(const std::string& name, const glm::mat4 &matrix) const;
+    void setUniform(const std::string& name, const Matrix4& matrix) const;
 
 private:
     static std::string readFromFile(const std::string& file_path);
