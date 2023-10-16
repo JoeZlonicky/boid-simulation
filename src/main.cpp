@@ -46,6 +46,9 @@ int main() {
         float delta_time = current_frame_time - last_frame_time;
         last_frame_time = current_frame_time;
 
+        camera.setPosX(std::cos(current_frame_time) * 10.f);
+        camera.setPosZ(std::sin(current_frame_time) * 10.0f);
+
         window.clear();
         cube.draw(shader, camera.getProjectionViewMatrix());
         window.refresh();

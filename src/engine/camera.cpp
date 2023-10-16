@@ -3,21 +3,42 @@
 #include <cmath>
 
 Camera::Camera(Vector3 pos, Vector3 target, float aspect_ratio) : pos_(pos), target_(target), aspect_ratio_(aspect_ratio), fov_(45.0f) {
-    calculateProjectionViewMatrix();
+    dirtyMatrixFlag = true;
 }
 
 void Camera::setPos(Vector3 pos) {
     pos_ = pos;
-    calculateProjectionViewMatrix();
+    dirtyMatrixFlag = true;
+}
+
+void Camera::setPosX(float x) {
+    pos_.x = x;
+    dirtyMatrixFlag = true;
+}
+
+void Camera::setPosY(float y) {
+    pos_.y = y;
+    dirtyMatrixFlag = true;
+}
+
+void Camera::setPosZ(float z) {
+    pos_.z = z;
 }
 
 void Camera::setTarget(Vector3 target) {
     target_ = target;
-    calculateProjectionViewMatrix();
+    dirtyMatrixFlag = true;
 }
 
 const Matrix4 & Camera::getProjectionViewMatrix() {
+    if (dirtyMatrixFlag) {
+        calculateProjectionViewMatrix();
+    }
     return projection_view_matrix_;
+}
+
+const Vector3 &Camera::getPos() {
+    return pos_;
 }
 
 void Camera::calculateProjectionViewMatrix() {
@@ -51,5 +72,5 @@ void Camera::calculateProjectionViewMatrix() {
     projection(2, 3) = -(2.f * far_plane * near_plane) / (far_plane - near_plane);
 
     projection_view_matrix_ = projection * view;
-
+    dirtyMatrixFlag = false;
 }
