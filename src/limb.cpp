@@ -10,7 +10,11 @@ Limb::~Limb() {
     glDeleteBuffers(1, &vbo_);
 }
 
-const Matrix4 &Limb::getTransform() const {
+const Transform &Limb::getTransform() const {
+    return transform_;
+}
+
+Transform &Limb::getTransform() {
     return transform_;
 }
 
@@ -75,9 +79,9 @@ void Limb::load() {
 }
 
 
-void Limb::draw(Shader& shader, const Matrix4& projectionViewMatrix) const {
+void Limb::draw(Shader& shader, const Matrix4& projectionViewMatrix) {
     shader.activate();
-    shader.setUniform("model", getTransform());
+    shader.setUniform("model", getTransform().getMatrix());
     shader.setUniform("projection_view", projectionViewMatrix);
 
     shader.setUniform("color", 0.4, 0.0, 0.0, 1.0);
@@ -96,3 +100,4 @@ void Limb::draw(Shader& shader, const Matrix4& projectionViewMatrix) const {
 
     glBindVertexArray(0);
 }
+

@@ -28,9 +28,9 @@ int main() {
         return 1;
     }
 
-    Limb cube{};
+    Limb limb{};
     try {
-        cube.load();
+        limb.load();
     } catch (const std::runtime_error& e) {
         std::cerr << e.what() << std::endl;
         return 1;
@@ -41,17 +41,21 @@ int main() {
                    (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT};
     window.setCamera(&camera);
 
+    limb.getTransform().rotate({{0.f, 0.f, 1.f}, 45.0f});
+
     auto last_frame_time = static_cast<float>(glfwGetTime());
     while (window.shouldKeepOpen()) {
         auto current_frame_time = static_cast<float>(glfwGetTime());
         float delta_time = current_frame_time - last_frame_time;
         last_frame_time = current_frame_time;
 
-        camera.setPosX(std::cos(current_frame_time) * 10.f);
-        camera.setPosZ(std::sin(current_frame_time) * 10.0f);
+        Quaternion q {{0.0f, 1.f, 0.f}, 40.f * delta_time};
+        limb.getTransform().rotate(q);
+//        camera.setPosX(std::cos(current_frame_time) * 10.f);
+//        camera.setPosZ(std::sin(current_frame_time) * 10.0f);
 
         window.clear();
-        cube.draw(shader, camera.getProjectionViewMatrix());
+        limb.draw(shader, camera.getProjectionViewMatrix());
         window.refresh();
 
         glfwPollEvents();

@@ -31,46 +31,48 @@ public:
     void setRotation(Quaternion q);
     void rotate(Quaternion q);
 
+    const Matrix4& getMatrix();
+
 private:
     [[nodiscard]] Matrix4 calcTranslationMatrix() const;
     [[nodiscard]] Matrix4 calcScaleMatrix() const;
 
-    Vector3 position {0.f};
-    Vector3 scale {1.f};
-    Quaternion rotation {};
+    Vector3 position_ {0.f};
+    Vector3 scale_ {1.f};
+    Quaternion rotation_ {};
 
-    bool isMatrixDirty = false;
-    Matrix4 matrix {0.f};
+    bool is_matrix_dirty_ = true;
+    Matrix4 matrix_ {0.f};
 };
 
 inline Matrix4 Transform::calcTranslationMatrix() const {
     return {
-        1.f, 0.f, 0.f, position.x,
-        0.f, 1.f, 0.f, position.y,
-        0.f, 0.f, 1.f, position.z,
+        1.f, 0.f, 0.f, position_.x,
+        0.f, 1.f, 0.f, position_.y,
+        0.f, 0.f, 1.f, position_.z,
         0.f, 0.f, 0.f, 1.f
     };
 }
 
 inline Matrix4 Transform::calcScaleMatrix() const {
     return {
-        scale.x, 0.f, 0.f, 0.f,
-        0.f, scale.y, 0.f, 0.f,
-        0.f, 0.f, scale.z, 0.f,
+        scale_.x, 0.f, 0.f, 0.f,
+        0.f, scale_.y, 0.f, 0.f,
+        0.f, 0.f, scale_.z, 0.f,
         0.f, 0.f, 0.f, 1.f
     };
 }
 
 inline const Vector3 &Transform::getPosition() const {
-    return position;
+    return position_;
 }
 
 inline const Vector3 &Transform::getScale() const {
-    return scale;
+    return scale_;
 }
 
 inline const Quaternion &Transform::getRotation() const {
-    return rotation;
+    return rotation_;
 }
 
 inline void Transform::setPos(float x, float y, float z) {
@@ -80,18 +82,18 @@ inline void Transform::setPos(float x, float y, float z) {
 }
 
 inline void Transform::setPosX(float x) {
-    position.x = x;
-    isMatrixDirty = true;
+    position_.x = x;
+    is_matrix_dirty_ = true;
 }
 
 inline void Transform::setPosY(float y) {
-    position.y = y;
-    isMatrixDirty = true;
+    position_.y = y;
+    is_matrix_dirty_ = true;
 }
 
 inline void Transform::setPosZ(float z) {
-    position.z = z;
-    isMatrixDirty = true;
+    position_.z = z;
+    is_matrix_dirty_ = true;
 }
 
 inline void Transform::move(float x, float y, float z) {
@@ -101,18 +103,18 @@ inline void Transform::move(float x, float y, float z) {
 }
 
 inline void Transform::moveX(float x) {
-    position.x += x;
-    isMatrixDirty = true;
+    position_.x += x;
+    is_matrix_dirty_ = true;
 }
 
 inline void Transform::moveY(float y) {
-    position.y += y;
-    isMatrixDirty = true;
+    position_.y += y;
+    is_matrix_dirty_ = true;
 }
 
 inline void Transform::moveZ(float z) {
-    position.z += z;
-    isMatrixDirty = true;
+    position_.z += z;
+    is_matrix_dirty_ = true;
 }
 
 inline void Transform::setScale(float x, float y, float z) {
@@ -122,26 +124,36 @@ inline void Transform::setScale(float x, float y, float z) {
 }
 
 inline void Transform::setScaleX(float x) {
-    scale.x = x;
-    isMatrixDirty = true;
+    scale_.x = x;
+    is_matrix_dirty_ = true;
 }
 
 inline void Transform::setScaleY(float y) {
-    scale.y = y;
-    isMatrixDirty = true;
+    scale_.y = y;
+    is_matrix_dirty_ = true;
 }
 
 inline void Transform::setScaleZ(float z) {
-    scale.z = z;
-    isMatrixDirty = true;
+    scale_.z = z;
+    is_matrix_dirty_ = true;
 }
 
 inline void Transform::setRotation(Quaternion q) {
-    rotation = q;
+    rotation_ = q;
+    is_matrix_dirty_ = true;
 }
 
 inline void Transform::rotate(Quaternion q) {
-    rotation = rotation * q;
+    rotation_ = q * rotation_;
+    is_matrix_dirty_ = true;
+}
+
+inline const Matrix4& Transform::getMatrix() {
+    if (is_matrix_dirty_) {
+        matrix_ =  calcTranslationMatrix() * rotation_.calcRotationMatrix() * calcScaleMatrix();
+        is_matrix_dirty_ = false;
+    }
+    return matrix_;
 }
 
 #endif

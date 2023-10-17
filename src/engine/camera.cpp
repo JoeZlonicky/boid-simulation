@@ -51,14 +51,14 @@ void Camera::setAspectRatio(float ratio) {
 }
 
 
-const Matrix4 & Camera::getProjectionViewMatrix() {
+const Matrix4& Camera::getProjectionViewMatrix() {
     if (dirtyMatrixFlag) {
         calculateProjectionViewMatrix();
     }
     return projection_view_matrix_;
 }
 
-const Vector3 &Camera::getPos() {
+const Vector3& Camera::getPos() {
     return pos_;
 }
 
