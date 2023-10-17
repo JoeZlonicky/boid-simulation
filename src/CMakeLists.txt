@@ -16,6 +16,7 @@ add_executable(ik-demo
         math/matrix_4.h
         math/vector_4.h
         math/point_3.h
+        math/transform.h
 )
 
 target_link_libraries(ik-demo glfw OpenGL)

@@ -13,10 +13,11 @@ struct Vector3 {
             float y;
             float z;
         };
-        float components[3] = {0.0f};
+        float components[3] = {0.f};
     };
 
-    Vector3() : x(0.0f), y(0.0f), z(0.0f) {}
+    Vector3() : x(0.f), y(0.f), z(0.f) {}
+    explicit Vector3(float value) : x(value), y(value), z(value) {}
     Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
 
     float& operator[](int i);
@@ -45,7 +46,7 @@ inline Vector3 Vector3::operator*(float s) const {
 }
 
 inline Vector3 Vector3::operator/(float s) const {
-    s = 1.0f / s;  // More performant to only do division once and then multiply
+    s = 1.f / s;  // More performant to only do division once and then multiply
     return {x * s, y * s, z * s};
 }
 
@@ -77,7 +78,7 @@ inline Vector3& Vector3::operator*=(float s) {
 }
 
 inline Vector3& Vector3::operator/=(float s) {
-    s = 1.0f / s;  // More performant to only do division once and then multiply
+    s = 1.f / s;  // More performant to only do division once and then multiply
     *this *= s;
     return *this;
 }

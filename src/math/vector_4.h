@@ -14,10 +14,11 @@ struct Vector4 {
             float z;
             float w;
         };
-        float components[4] = {0.0f};
+        float components[4] = {0.f};
     };
 
-    Vector4() : x(0.0f), y(0.0f), z(0.0f), w(0.0f) {}
+    Vector4() : x(0.f), y(0.f), z(0.f), w(0.f) {}
+    explicit Vector4(float value) : x(value), y(value), z(value), w(value) {}
     Vector4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
 
     float& operator[](int i);
@@ -45,7 +46,7 @@ inline Vector4 Vector4::operator*(float s) const {
 }
 
 inline Vector4 Vector4::operator/(float s) const {
-    s = 1.0f / s;  // More performant to only do division once and then multiply
+    s = 1.f / s;  // More performant to only do division once and then multiply
     return {x * s, y * s, z * s, w * s};
 }
 
@@ -78,7 +79,7 @@ inline Vector4& Vector4::operator*=(float s) {
 }
 
 inline Vector4& Vector4::operator/=(float s) {
-    s = 1.0f / s;  // More performant to only do division once and then multiply
+    s = 1.f / s;  // More performant to only do division once and then multiply
     *this *= s;
     return *this;
 }

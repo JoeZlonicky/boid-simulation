@@ -46,7 +46,7 @@ void Window::init(const std::string & title, const int width, const int height) 
 }
 
 void Window::clear() {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.f, 0.f, 0.f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
