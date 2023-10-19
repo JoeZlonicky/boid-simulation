@@ -25,15 +25,15 @@ public:
 private:
     void calculateProjectionViewMatrix();
 
-    bool dirtyMatrixFlag = false;
+    bool dirty_matrix_flag_ = true;
+    Matrix4 projection_view_matrix_ = {};
+
     Vector3 pos_;
     Vector3 target_;
     float fov_degrees_ = 45.f;
     float near_plane_ = 0.1f;
     float far_plane_ = 100.f;
     float aspect_ratio_;
-
-    Matrix4 projection_view_matrix_ = {};
 };
 
 #endif

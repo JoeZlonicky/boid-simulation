@@ -3,6 +3,7 @@
 
 #include "vector_4.h"
 
+// Implementation takes inspiration from Foundation of Game Engine Development, Volume 1: Mathematics by Eric Lengyel
 struct Matrix4 {
 protected:
     float n[4][4];
@@ -21,10 +22,11 @@ public:
                                                              {n02, n12, n22, n32},
                                                              {n03, n13, n23, n33}} {}
 
+    Vector4& getColumn(int j);
+    [[nodiscard]] const Vector4& getColumn(int j) const;
+
     float& operator()(int i, int j);
     const float& operator()(int i, int j) const;
-    Vector4& operator[](int j);
-    const Vector4& operator[](int j) const;
 
     Matrix4 operator*(const Matrix4& b);
     Matrix4 operator-();
@@ -38,11 +40,11 @@ inline const float& Matrix4::operator()(int i, int j) const {
     return n[j][i];
 }
 
-inline Vector4& Matrix4::operator[](int j) {
+inline Vector4& Matrix4::getColumn(int j) {
     return (*reinterpret_cast<Vector4*>(n[j]));
 }
 
-inline const Vector4& Matrix4::operator[](int j) const {
+inline const Vector4& Matrix4::getColumn(int j) const {
     return (*reinterpret_cast<const Vector4*>(n[j]));
 }
 

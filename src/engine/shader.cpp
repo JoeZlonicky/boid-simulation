@@ -43,7 +43,7 @@ void Shader::setUniform(const std::string & name, float x, float y, float z, flo
 }
 
 void Shader::setUniform(const std::string & name, const Matrix4& matrix) const {
-    glUniformMatrix4fv(glGetUniformLocation(id_, name.c_str()), 1, GL_FALSE, &matrix[0].x);
+    glUniformMatrix4fv(glGetUniformLocation(id_, name.c_str()), 1, GL_FALSE, &matrix(0, 0));
 }
 
 std::string Shader::readFromFile(const std::string& file_path) {

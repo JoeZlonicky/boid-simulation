@@ -1,9 +1,9 @@
 #ifndef IK_DEMO_TRANSFORM_H_
 #define IK_DEMO_TRANSFORM_H_
 
-#include "vector_3.h"
-#include "quaternion.h"
-#include "matrix_4.h"
+#include "math/vector_3.h"
+#include "math/quaternion.h"
+#include "math/matrix_4.h"
 
 class Transform {
 public:
@@ -34,33 +34,41 @@ public:
     const Matrix4& getMatrix();
 
 private:
-    [[nodiscard]] Matrix4 calcTranslationMatrix() const;
-    [[nodiscard]] Matrix4 calcScaleMatrix() const;
+    void updatePositionMatrix();
+    void updateRotationMatrix();
+    void updateScaleMatrix();
 
     Vector3 position_ {0.f};
-    Vector3 scale_ {1.f};
     Quaternion rotation_ {};
+    Vector3 scale_ {1.f};
 
-    bool is_matrix_dirty_ = true;
+    bool is_position_dirty_ = true;
+    bool is_rotation_dirty_ = true;
+    bool is_scale_dirty_ = true;
+    Matrix4 position_matrix_ {1.f};
+    Matrix4 scale_matrix_ {1.f};
+    Matrix4 rotation_matrix_ {1.f};
+
     Matrix4 matrix_ {0.f};
 };
 
-inline Matrix4 Transform::calcTranslationMatrix() const {
-    return {
-        1.f, 0.f, 0.f, position_.x,
-        0.f, 1.f, 0.f, position_.y,
-        0.f, 0.f, 1.f, position_.z,
-        0.f, 0.f, 0.f, 1.f
-    };
+inline void Transform::updatePositionMatrix() {
+    position_matrix_(0, 3) = position_.x;
+    position_matrix_(1, 3) = position_.y;
+    position_matrix_(2, 3) = position_.z;
+    is_position_dirty_ = false;
 }
 
-inline Matrix4 Transform::calcScaleMatrix() const {
-    return {
-        scale_.x, 0.f, 0.f, 0.f,
-        0.f, scale_.y, 0.f, 0.f,
-        0.f, 0.f, scale_.z, 0.f,
-        0.f, 0.f, 0.f, 1.f
-    };
+inline void Transform::updateRotationMatrix() {
+    rotation_matrix_ = rotation_.calcRotationMatrix();
+    is_rotation_dirty_ = false;
+}
+
+inline void Transform::updateScaleMatrix() {
+    scale_matrix_(0, 0) = scale_.x;
+    scale_matrix_(1, 1) = scale_.y;
+    scale_matrix_(2, 2) = scale_.z;
+    is_scale_dirty_ = false;
 }
 
 inline const Vector3 &Transform::getPosition() const {
@@ -83,17 +91,17 @@ inline void Transform::setPos(float x, float y, float z) {
 
 inline void Transform::setPosX(float x) {
     position_.x = x;
-    is_matrix_dirty_ = true;
+    is_position_dirty_ = true;
 }
 
 inline void Transform::setPosY(float y) {
     position_.y = y;
-    is_matrix_dirty_ = true;
+    is_position_dirty_ = true;
 }
 
 inline void Transform::setPosZ(float z) {
     position_.z = z;
-    is_matrix_dirty_ = true;
+    is_position_dirty_ = true;
 }
 
 inline void Transform::move(float x, float y, float z) {
@@ -104,17 +112,17 @@ inline void Transform::move(float x, float y, float z) {
 
 inline void Transform::moveX(float x) {
     position_.x += x;
-    is_matrix_dirty_ = true;
+    is_position_dirty_ = true;
 }
 
 inline void Transform::moveY(float y) {
     position_.y += y;
-    is_matrix_dirty_ = true;
+    is_position_dirty_ = true;
 }
 
 inline void Transform::moveZ(float z) {
     position_.z += z;
-    is_matrix_dirty_ = true;
+    is_position_dirty_ = true;
 }
 
 inline void Transform::setScale(float x, float y, float z) {
@@ -125,33 +133,45 @@ inline void Transform::setScale(float x, float y, float z) {
 
 inline void Transform::setScaleX(float x) {
     scale_.x = x;
-    is_matrix_dirty_ = true;
+    is_scale_dirty_ = true;
 }
 
 inline void Transform::setScaleY(float y) {
     scale_.y = y;
-    is_matrix_dirty_ = true;
+    is_scale_dirty_ = true;
 }
 
 inline void Transform::setScaleZ(float z) {
     scale_.z = z;
-    is_matrix_dirty_ = true;
+    is_scale_dirty_ = true;
 }
 
 inline void Transform::setRotation(Quaternion q) {
     rotation_ = q;
-    is_matrix_dirty_ = true;
+    is_rotation_dirty_ = true;
 }
 
 inline void Transform::rotate(Quaternion q) {
     rotation_ = q * rotation_;
-    is_matrix_dirty_ = true;
+    is_rotation_dirty_ = true;
 }
 
 inline const Matrix4& Transform::getMatrix() {
-    if (is_matrix_dirty_) {
-        matrix_ =  calcTranslationMatrix() * rotation_.calcRotationMatrix() * calcScaleMatrix();
-        is_matrix_dirty_ = false;
+    bool is_transform_dirty = false;
+    if (is_position_dirty_) {
+        updatePositionMatrix();
+        is_transform_dirty = true;
+    }
+    if (is_scale_dirty_) {
+        updateScaleMatrix();
+        is_transform_dirty = true;
+    }
+    if (is_rotation_dirty_) {
+        updateRotationMatrix();
+        is_transform_dirty = true;
+    }
+    if (is_transform_dirty) {
+        matrix_ = position_matrix_ * rotation_matrix_ * scale_matrix_;
     }
     return matrix_;
 }

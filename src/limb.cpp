@@ -5,20 +5,7 @@
 #include "engine/shader.h"
 
 
-Limb::~Limb() {
-    glDeleteVertexArrays(1, &vao_);
-    glDeleteBuffers(1, &vbo_);
-}
-
-const Transform &Limb::getTransform() const {
-    return transform_;
-}
-
-Transform &Limb::getTransform() {
-    return transform_;
-}
-
-void Limb::load() {
+Limb::Limb() {
     float vertices[] = {
         0.0f, -0.25f, -0.25f,
         1.0f, -0.25f, -0.25f,
@@ -78,6 +65,18 @@ void Limb::load() {
     glBindVertexArray(0);
 }
 
+Limb::~Limb() {
+    glDeleteVertexArrays(1, &vao_);
+    glDeleteBuffers(1, &vbo_);
+}
+
+const Transform &Limb::getTransform() const {
+    return transform_;
+}
+
+Transform &Limb::getTransform() {
+    return transform_;
+}
 
 void Limb::draw(Shader& shader, const Matrix4& projectionViewMatrix) {
     shader.activate();

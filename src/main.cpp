@@ -11,7 +11,7 @@ constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;
 
 int main() {
-    Window window{};
+    Window window {};
     try {
         window.init("Hello, world!", WINDOW_WIDTH, WINDOW_HEIGHT);
     } catch (const char* e) {
@@ -19,7 +19,7 @@ int main() {
         return 1;
     }
 
-    Shader shader{};
+    Shader shader {};
     try {
         shader.create("shaders/default_vertex_shader.vert",
                       "shaders/default_fragment_shader.frag");
@@ -28,13 +28,7 @@ int main() {
         return 1;
     }
 
-    Limb limb{};
-    try {
-        limb.load();
-    } catch (const std::runtime_error& e) {
-        std::cerr << e.what() << std::endl;
-        return 1;
-    }
+    Limb limb {};
 
     Camera camera {{0.f, 0.f, 10.f},
                    {0.f, 0.f, 0.f},
@@ -51,8 +45,6 @@ int main() {
 
         Quaternion q {{0.0f, 1.f, 0.f}, 40.f * delta_time};
         limb.getTransform().rotate(q);
-//        camera.setPosX(std::cos(current_frame_time) * 10.f);
-//        camera.setPosZ(std::sin(current_frame_time) * 10.0f);
 
         window.clear();
         limb.draw(shader, camera.getProjectionViewMatrix());

@@ -3,56 +3,55 @@
 #include <cmath>
 
 Camera::Camera(Vector3 pos, Vector3 target, float aspect_ratio) : pos_(pos), target_(target), aspect_ratio_(aspect_ratio) {
-    dirtyMatrixFlag = true;
 }
 
 void Camera::setPos(Vector3 pos) {
     pos_ = pos;
-    dirtyMatrixFlag = true;
+    dirty_matrix_flag_ = true;
 }
 
 void Camera::setPosX(float x) {
     pos_.x = x;
-    dirtyMatrixFlag = true;
+    dirty_matrix_flag_ = true;
 }
 
 void Camera::setPosY(float y) {
     pos_.y = y;
-    dirtyMatrixFlag = true;
+    dirty_matrix_flag_ = true;
 }
 
 void Camera::setPosZ(float z) {
     pos_.z = z;
+    dirty_matrix_flag_ = true;
 }
 
 void Camera::setTarget(Vector3 target) {
     target_ = target;
-    dirtyMatrixFlag = true;
+    dirty_matrix_flag_ = true;
 }
 
 void Camera::setFOV(float degrees) {
     fov_degrees_ = degrees;
-    dirtyMatrixFlag = true;
+    dirty_matrix_flag_ = true;
 }
 
 void Camera::setNearPlane(float d) {
     near_plane_ = d;
-    dirtyMatrixFlag = true;
+    dirty_matrix_flag_ = true;
 }
 
 void Camera::setFarPlane(float d) {
     far_plane_ = d;
-    dirtyMatrixFlag = true;
+    dirty_matrix_flag_ = true;
 }
 
 void Camera::setAspectRatio(float ratio) {
     aspect_ratio_ = ratio;
-    dirtyMatrixFlag = true;
+    dirty_matrix_flag_ = true;
 }
 
-
 const Matrix4& Camera::getProjectionViewMatrix() {
-    if (dirtyMatrixFlag) {
+    if (dirty_matrix_flag_) {
         calculateProjectionViewMatrix();
     }
     return projection_view_matrix_;
@@ -90,5 +89,5 @@ void Camera::calculateProjectionViewMatrix() {
     projection(2, 3) = -(2.f * far_plane_ * near_plane_) / (far_plane_ - near_plane_);
 
     projection_view_matrix_ = projection * view;
-    dirtyMatrixFlag = false;
+    dirty_matrix_flag_ = false;
 }

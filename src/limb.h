@@ -3,14 +3,14 @@
 
 #include <string>
 #include "math/matrix_4.h"
-#include "math/transform.h"
+#include "engine/transform.h"
 
 class Shader;
 
 class Limb {
 public:
+    Limb();
     ~Limb();
-    void load();
     void draw(Shader& shader, const Matrix4& projectionViewMatrix);
 
     [[nodiscard]] const Transform& getTransform() const;
