@@ -19,7 +19,7 @@ struct Quaternion {
         float components[4] = {0.f, 0.f, 0.f, 1.f};
     };
 
-    Quaternion() : x(0.f), y(0.f), z(0.f), w(1.f) {}
+    Quaternion() : Quaternion({1.0f, 0.f, 0.f}, 0.f) {}
     Quaternion(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
 
     Quaternion(Vector3 axis, float angle_degrees) {

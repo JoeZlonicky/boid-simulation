@@ -15,6 +15,7 @@ public:
 
     [[nodiscard]] const Transform& getTransform() const;
     [[nodiscard]] Transform& getTransform();
+    [[nodiscard]] Vector3 getEnd() const;
 
 private:
     unsigned int vao_ = 0;

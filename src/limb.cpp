@@ -100,3 +100,9 @@ void Limb::draw(Shader& shader, const Matrix4& projectionViewMatrix) {
     glBindVertexArray(0);
 }
 
+Vector3 Limb::getEnd() const {
+    const float length = 1.0f;
+    const Vector3 end = transform_.getPosition() + transform_.getRotation().getVectorPart().normalized() * length;
+    return end;
+}
+

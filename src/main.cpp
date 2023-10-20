@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "glad/glad.h"  // Needs to be included before GLFW
 #include <GLFW/glfw3.h>
 
@@ -9,6 +10,20 @@
 
 constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;
+
+void performInverseKinematics(std::vector<Limb>& limbs) {
+    if (limbs.empty()) {
+        return;
+    }
+
+    const Limb* previous = &limbs.at(0);
+    for (int i = 1; i < limbs.size(); ++i) {
+        Limb& current = limbs.at(i);
+        Vector3 start = previous->getEnd();
+        current.getTransform().setPos(start);
+        previous = &current;
+    }
+}
 
 int main() {
     Window window {};
@@ -28,14 +43,15 @@ int main() {
         return 1;
     }
 
-    Limb limb {};
+    std::vector<Limb> limbs {};
+    for (int i = 0; i < 1; ++i) {
+        limbs.emplace_back();
+    }
 
     Camera camera {{0.f, 0.f, 10.f},
                    {0.f, 0.f, 0.f},
                    (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT};
     window.setCamera(&camera);
-
-    limb.getTransform().rotate({{0.f, 0.f, 1.f}, 45.0f});
 
     auto last_frame_time = static_cast<float>(glfwGetTime());
     while (window.shouldKeepOpen()) {
@@ -43,11 +59,13 @@ int main() {
         float delta_time = current_frame_time - last_frame_time;
         last_frame_time = current_frame_time;
 
-        Quaternion q {{0.0f, 1.f, 0.f}, 40.f * delta_time};
-        limb.getTransform().rotate(q);
+        performInverseKinematics(limbs);
 
         window.clear();
-        limb.draw(shader, camera.getProjectionViewMatrix());
+        for (Limb& limb : limbs) {
+            limb.draw(shader, camera.getProjectionViewMatrix());
+        }
+
         window.refresh();
 
         glfwPollEvents();

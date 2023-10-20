@@ -14,6 +14,7 @@ public:
     [[nodiscard]] const Quaternion& getRotation() const;
 
     void setPos(float x, float y, float z);
+    void setPos(const Vector3& v);
     void setPosX(float x);
     void setPosY(float y);
     void setPosZ(float z);
@@ -87,6 +88,12 @@ inline void Transform::setPos(float x, float y, float z) {
     setPosX(x);
     setPosY(y);
     setPosZ(z);
+}
+
+inline void Transform::setPos(const Vector3& v) {
+    setPosX(v.x);
+    setPosY(v.y);
+    setPosZ(v.z);
 }
 
 inline void Transform::setPosX(float x) {
