@@ -19,8 +19,8 @@ void performInverseKinematics(std::vector<Limb>& limbs) {
     const Limb* previous = &limbs.at(0);
     for (int i = 1; i < limbs.size(); ++i) {
         Limb& current = limbs.at(i);
-        Vector3 start = previous->getEnd();
-        current.getTransform().setPos(start);
+        // TODO: Base position off end of previous limb
+        current.getTransform().setPosX(static_cast<float>(i));
         previous = &current;
     }
 }
@@ -43,10 +43,7 @@ int main() {
         return 1;
     }
 
-    std::vector<Limb> limbs {};
-    for (int i = 0; i < 1; ++i) {
-        limbs.emplace_back();
-    }
+    std::vector<Limb> limbs {3};
 
     Camera camera {{0.f, 0.f, 10.f},
                    {0.f, 0.f, 0.f},

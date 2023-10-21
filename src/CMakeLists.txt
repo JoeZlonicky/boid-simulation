@@ -19,4 +19,4 @@ add_executable(ik-demo
         engine/transform.h
 )
 
-target_link_libraries(ik-demo glfw OpenGL)
+target_link_libraries(ik-demo glfw ${OPENGL_gl_LIBRARY})
