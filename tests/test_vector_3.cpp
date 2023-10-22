@@ -4,6 +4,7 @@
 #include <cmath>
 #include "testing_utility.h"
 
+
 TEST(Vector3, DefaultConstruction) {
     Vector3 v;
     assertVectorValues(v, 0.f, 0.f, 0.f);

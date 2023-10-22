@@ -13,14 +13,6 @@ struct Point3 : Vector3 {
     Vector3 operator-(const Point3& p);
 };
 
-inline Point3 Point3::operator+(const Vector3 &v) {
-    return {x + v.x, y + v.y, z + v.z};
-}
-
-inline Point3 Point3::operator-(const Vector3 &v) {
-    return {x - v.x, y - v.y, z - v.z};
-}
-
 inline Vector3 Point3::operator-(const Point3 &p) {
     return {x - p.x, y - p.y, z - p.z};
 }
