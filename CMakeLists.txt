@@ -14,7 +14,6 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 add_subdirectory(external/googletest)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-include_directories(src)
 add_subdirectory(src)
 add_subdirectory(tests)
 

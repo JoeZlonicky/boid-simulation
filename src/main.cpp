@@ -5,7 +5,7 @@
 
 #include "engine/shader.h"
 #include "engine/window.h"
-#include "limb.h"
+#include "engine/limb.h"
 #include "engine/camera.h"
 
 constexpr int WINDOW_WIDTH = 1280;

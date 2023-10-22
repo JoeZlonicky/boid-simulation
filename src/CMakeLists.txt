@@ -1,26 +1,26 @@
 include_directories(../external/glad/include)
+include_directories(.)
+
+set (ENGINE_SOURCE_FILES
+        engine/camera.cpp
+        engine/limb.cpp
+        engine/shader.cpp
+        engine/window.cpp
+)
+
+set (MATH_SOURCE_FILES
+        math/matrix_4.cpp
+        math/transform.cpp
+        math/quaternion.cpp
+        math/vector_3.cpp
+        math/vector_4.cpp
+)
 
 add_executable(ik-demo
         main.cpp
-        limb.h
-        limb.cpp
         ../external/glad/src/glad.c
-        engine/shader.h
-        engine/shader.cpp
-        engine/window.h
-        engine/window.cpp
-        engine/camera.h
-        engine/camera.cpp
-        engine/transform.h
-        engine/transform.cpp
-        math/vector_3.h
-        math/vector_3.cpp
-        math/quaternion.h
-        math/quaternion.cpp
-        math/matrix_4.h
-        math/vector_4.h
-        math/vector_4.cpp
-        math/matrix_4.cpp
+        ${ENGINE_SOURCE_FILES}
+        ${MATH_SOURCE_FILES}
 )
 
 target_link_libraries(ik-demo glfw ${OPENGL_gl_LIBRARY})
