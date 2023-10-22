@@ -9,12 +9,11 @@ const float& Quaternion::operator[](int i) const {
     return components[i];
 }
 
-Vector3& Quaternion::getVectorPart() {
-    return reinterpret_cast<Vector3&>(x);
-}
-
-const Vector3 &Quaternion::getVectorPart() const {
-    return reinterpret_cast<const Vector3&>(x);
+void Quaternion::set(float x, float y, float z, float w) {
+    this->x = x;
+    this->y = y;
+    this->z = z;
+    this->w = w;
 }
 
 Matrix4 Quaternion::calcRotationMatrix() const {
@@ -35,15 +34,25 @@ Matrix4 Quaternion::calcRotationMatrix() const {
     };
 }
 
-Quaternion Quaternion::operator*(const Quaternion &b) const {
-    return {
-            w * b.x + x * b.w + y * b.z - z * b.y,
-            w * b.y - x * b.z + y * b.w + z * b.x,
-            w * b.z + x * b.y - y * b.x + z * b.w,
-            w * b.w - x * b.x - y * b.y - z * b.z
-    };
+Vector3& Quaternion::getVectorPart() {
+    return reinterpret_cast<Vector3&>(x);
 }
 
-Quaternion Quaternion::operator+(const Quaternion& b) const {
-    return {x + b.x, y + b.y, z + b.z, w + b.w};
+const Vector3 &Quaternion::getVectorPart() const {
+    return reinterpret_cast<const Vector3&>(x);
+}
+
+Quaternion& Quaternion::operator*=(const Quaternion &q) {
+    set(
+            w * q.x + x * q.w + y * q.z - z * q.y,
+            w * q.y - x * q.z + y * q.w + z * q.x,
+            w * q.z + x * q.y - y * q.x + z * q.w,
+            w * q.w - x * q.x - y * q.y - z * q.z
+    );
+    return *this;
+}
+
+Quaternion operator*(Quaternion a, const Quaternion& b) {
+    a *= b;
+    return a;
 }

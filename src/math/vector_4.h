@@ -25,20 +25,19 @@ struct Vector4 {
     const float& operator[](int i) const;
 
     Vector4& operator*=(float s);
-    Vector4 operator*(float s) const;
     Vector4& operator/=(float s);
-    Vector4 operator/(float s) const;
-
     Vector4& operator+=(const Vector4& v);
-    Vector4 operator+(const Vector4& v) const;
     Vector4& operator-=(const Vector4& v);
-    Vector4 operator-(const Vector4& v) const;
-
-    Vector4 operator-() const;
 
     void normalize();
     [[nodiscard]] Vector4 normalized() const;
     [[nodiscard]] float magnitude() const;
 };
+
+Vector4 operator*(Vector4 v, float s);
+Vector4 operator/(Vector4 v, float s);
+Vector4 operator+(Vector4 a, const Vector4& b);
+Vector4 operator-(Vector4 a, const Vector4& b);
+Vector4 operator-(Vector4 v);
 
 #endif

@@ -1,6 +1,5 @@
 #include "limb.h"
 
-#include <stdexcept>
 #include "glad/glad.h"
 #include "engine/shader.h"
 

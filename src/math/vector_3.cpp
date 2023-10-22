@@ -1,26 +1,7 @@
 #include "vector_3.h"
 
+#include <cmath>
 
-Vector3 Vector3::operator*(float s) const {
-    return {x * s, y * s, z * s};
-}
-
-Vector3 Vector3::operator/(float s) const {
-    s = 1.f / s;  // More performant to only do division once and then multiply
-    return {x * s, y * s, z * s};
-}
-
-Vector3 Vector3::operator-() const {
-    return {-x, -y, -z};
-}
-
-Vector3 Vector3::operator+(const Vector3& v) const {
-    return {x + v.x, y + v.y, z + v.z};
-}
-
-Vector3 Vector3::operator-(const Vector3& v) const {
-    return {x - v.x, y - v.y, z - v.z};
-}
 
 float& Vector3::operator[](int i) {
     return components[i];
@@ -73,4 +54,29 @@ Vector3 Vector3::cross(const Vector3 &v) const {
     return {y * v.z - z * v.y,
             z * v.x - x * v.z,
             x * v.y - y * v.x};
+}
+
+Vector3 operator*(Vector3 v, float s) {
+    v *= s;
+    return v;
+}
+
+Vector3 operator/(Vector3 v, float s) {
+    v /= s;
+    return v;
+}
+
+Vector3 operator+(Vector3 a, const Vector3& b) {
+    a += b;
+    return a;
+}
+
+Vector3 operator-(Vector3 a, const Vector3& b) {
+    a -= b;
+    return a;
+}
+
+Vector3 operator-(Vector3 v) {
+    v *= -1.f;
+    return v;
 }

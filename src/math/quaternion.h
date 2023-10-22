@@ -34,14 +34,18 @@ struct Quaternion {
         w = std::cos(half_angle);
     }
 
-    float& operator[](int i);
-    const float& operator[](int i) const;
-    Quaternion operator*(const Quaternion& b) const;
-    Quaternion operator+(const Quaternion& b) const;
-
+    void set(float x, float y, float z, float w);
     [[nodiscard]] Matrix4 calcRotationMatrix() const;
+
     [[nodiscard]] Vector3& getVectorPart();
     [[nodiscard]] const Vector3& getVectorPart() const;
+
+    float& operator[](int i);
+    const float& operator[](int i) const;
+
+    Quaternion& operator*=(const Quaternion& q);
 };
+
+Quaternion operator*(Quaternion a, const Quaternion& b);
 
 #endif

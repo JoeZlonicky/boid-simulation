@@ -1,27 +1,6 @@
 #include "vector_4.h"
 
 
-Vector4 Vector4::operator*(float s) const {
-    return {x * s, y * s, z * s, w * s};
-}
-
-Vector4 Vector4::operator/(float s) const {
-    s = 1.f / s;  // More performant to only do division once and then multiply
-    return {x * s, y * s, z * s, w * s};
-}
-
-Vector4 Vector4::operator-() const {
-    return {-x, -y, -z, -w};
-}
-
-Vector4 Vector4::operator+(const Vector4& v) const {
-    return {x + v.x, y + v.y, z + v.z, w + v.w};
-}
-
-Vector4 Vector4::operator-(const Vector4& v) const {
-    return {x - v.x, y - v.y, z - v.z, w - v.w};
-}
-
 float& Vector4::operator[](int i) {
     return components[i];
 }
@@ -70,4 +49,29 @@ Vector4 Vector4::normalized() const {
 
 float Vector4::magnitude() const {
     return (std::sqrt(x * x + y * y + z * z + w * w));
+}
+
+Vector4 operator*(Vector4 v, float s) {
+    v *= s;
+    return v;
+}
+
+Vector4 operator/(Vector4 v, float s) {
+    v /= s;
+    return v;
+}
+
+Vector4 operator+(Vector4 a, const Vector4& b) {
+    a += b;
+    return a;
+}
+
+Vector4 operator-(Vector4 a, const Vector4& b) {
+    a -= b;
+    return a;
+}
+
+Vector4 operator-(Vector4 v) {
+    v *= -1.f;
+    return v;
 }
