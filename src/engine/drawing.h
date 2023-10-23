@@ -12,4 +12,4 @@ namespace drawing {
     void drawLimbs(std::vector<Limb>& limbs, Shader& shader, Camera& camera);
 }
 
-#endif //IK_DEMO_DRAWING_H
+#endif

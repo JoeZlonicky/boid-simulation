@@ -3,6 +3,7 @@ include_directories(.)
 
 set (ENGINE_SOURCE_FILES
         engine/camera.cpp
+        engine/inverse_kinematics.cpp
         engine/limb.cpp
         engine/shader.cpp
         engine/window.cpp

@@ -3,31 +3,15 @@
 #include "glad/glad.h"  // Needs to be included before GLFW
 #include <GLFW/glfw3.h>
 
-#include "engine/shader.h"
-#include "engine/window.h"
-#include "engine/limb.h"
 #include "engine/camera.h"
 #include "engine/drawing.h"
+#include "engine/inverse_kinematics.h"
+#include "engine/limb.h"
+#include "engine/shader.h"
+#include "engine/window.h"
 
 constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;
-
-void performInverseKinematics(std::vector<Limb>& limbs, float time) {
-    if (limbs.empty()) {
-        return;
-    }
-
-    const Limb* previous = &limbs.at(0);
-    const float rotation_increment = std::sin(time * 2.f) * 15.f;
-    float rotation = rotation_increment;
-    for (int i = 1; i < limbs.size(); ++i) {
-        Limb& current = limbs.at(i);
-        current.getTransform().setPos(previous->getEnd());
-        current.getTransform().setRotation({{0, 0, 1}, rotation});
-        previous = &current;
-        rotation += rotation_increment;
-    }
-}
 
 int main() {
     Window window {};
@@ -61,13 +45,12 @@ int main() {
         float delta_time = current_frame_time - last_frame_time;
         last_frame_time = current_frame_time;
 
-        performInverseKinematics(limbs, current_frame_time);
+        inverse_kinematics::perform(limbs, current_frame_time);
 
         drawing::clear();
         drawing::drawLimbs(limbs, shader, camera);
 
         window.refresh();
-
         glfwPollEvents();
     }
 
