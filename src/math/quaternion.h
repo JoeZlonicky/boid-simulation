@@ -22,17 +22,7 @@ struct Quaternion {
     Quaternion() : Quaternion({1.0f, 0.f, 0.f}, 0.f) {}
     Quaternion(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
 
-    Quaternion(Vector3 axis, float angle_degrees) {
-        axis.normalize();
-
-        float angle_radians = angle_degrees / 180.f * static_cast<float>(M_PI);
-        float half_angle = (angle_radians) / 2.f;
-        float sin_half_angle = std::sin(half_angle);
-        x = axis.x * sin_half_angle;
-        y = axis.y * sin_half_angle;
-        z = axis.z * sin_half_angle;
-        w = std::cos(half_angle);
-    }
+    Quaternion(Vector3 axis, float angle_degrees);
 
     void set(float x, float y, float z, float w);
     [[nodiscard]] Matrix4 calcRotationMatrix() const;

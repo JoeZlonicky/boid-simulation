@@ -11,17 +11,20 @@
 constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;
 
-void performInverseKinematics(std::vector<Limb>& limbs) {
+void performInverseKinematics(std::vector<Limb>& limbs, float time) {
     if (limbs.empty()) {
         return;
     }
 
     const Limb* previous = &limbs.at(0);
+    const float rotation_increment = std::sin(time * 2.f) * 15.f;
+    float rotation = rotation_increment;
     for (int i = 1; i < limbs.size(); ++i) {
         Limb& current = limbs.at(i);
-        // TODO: Base position off end of previous limb
-        current.getTransform().setPosX(static_cast<float>(i));
+        current.getTransform().setPos(previous->getEnd());
+        current.getTransform().setRotation({{0, 0, 1}, rotation});
         previous = &current;
+        rotation += rotation_increment;
     }
 }
 
@@ -43,9 +46,9 @@ int main() {
         return 1;
     }
 
-    std::vector<Limb> limbs {3};
+    std::vector<Limb> limbs {5};
 
-    Camera camera {{0.f, 0.f, 10.f},
+    Camera camera {{5.f, 5.f, 10.f},
                    {0.f, 0.f, 0.f},
                    (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT};
     window.setCamera(&camera);
@@ -56,7 +59,7 @@ int main() {
         float delta_time = current_frame_time - last_frame_time;
         last_frame_time = current_frame_time;
 
-        performInverseKinematics(limbs);
+        performInverseKinematics(limbs, current_frame_time);
 
         window.clear();
         for (Limb& limb : limbs) {

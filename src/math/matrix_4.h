@@ -42,4 +42,6 @@ Matrix4 operator*(Matrix4 a, const Matrix4& b);
 Matrix4 operator*(Matrix4 m, float s);
 Matrix4 operator-(Matrix4 m);
 
+Vector4 operator*(const Matrix4& m, const Vector4& v);
+
 #endif

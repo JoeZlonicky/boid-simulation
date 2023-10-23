@@ -1,6 +1,18 @@
 #include "Quaternion.h"
 
 
+Quaternion::Quaternion(Vector3 axis, float angle_degrees) {
+    axis.normalize();
+
+    float angle_radians = angle_degrees / 180.f * static_cast<float>(M_PI);
+    float half_angle = (angle_radians) / 2.f;
+    float sin_half_angle = std::sin(half_angle);
+    x = axis.x * sin_half_angle;
+    y = axis.y * sin_half_angle;
+    z = axis.z * sin_half_angle;
+    w = std::cos(half_angle);
+}
+
 float& Quaternion::operator[](int i) {
     return components[i];
 }
