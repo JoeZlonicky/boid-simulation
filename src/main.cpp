@@ -7,6 +7,7 @@
 #include "engine/window.h"
 #include "engine/limb.h"
 #include "engine/camera.h"
+#include "engine/drawing.h"
 
 constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;
@@ -53,6 +54,7 @@ int main() {
                    (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT};
     window.setCamera(&camera);
 
+    drawing::init();
     auto last_frame_time = static_cast<float>(glfwGetTime());
     while (window.shouldKeepOpen()) {
         auto current_frame_time = static_cast<float>(glfwGetTime());
@@ -61,10 +63,8 @@ int main() {
 
         performInverseKinematics(limbs, current_frame_time);
 
-        window.clear();
-        for (Limb& limb : limbs) {
-            limb.draw(shader, camera.getProjectionViewMatrix());
-        }
+        drawing::clear();
+        drawing::drawLimbs(limbs, shader, camera);
 
         window.refresh();
 

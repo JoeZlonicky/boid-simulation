@@ -10,9 +10,7 @@ class Window {
 public:
     ~Window();
     void init(const std::string & title, int width, int height);
-    void clear() ;
     void refresh() const;
-
     void resize(int width, int height);
 
     void setCamera(Camera* camera);

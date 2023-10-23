@@ -34,8 +34,6 @@ void Window::init(const std::string & title, const int width, const int height) 
     }
 
     glViewport(0, 0, width, height);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_POLYGON_OFFSET_FILL);
 
     glfwSetWindowUserPointer(glfw_window_, this);
     auto onManualResize = [](GLFWwindow* glfwWindow, int width, int height) {
@@ -43,11 +41,6 @@ void Window::init(const std::string & title, const int width, const int height) 
         window->resize(width, height);
     };
     glfwSetFramebufferSizeCallback(glfw_window_, onManualResize);
-}
-
-void Window::clear() {
-    glClearColor(0.f, 0.f, 0.f, 1.f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Window::refresh() const {

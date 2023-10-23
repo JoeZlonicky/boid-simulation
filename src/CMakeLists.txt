@@ -6,6 +6,7 @@ set (ENGINE_SOURCE_FILES
         engine/limb.cpp
         engine/shader.cpp
         engine/window.cpp
+        engine/drawing.cpp
 )
 
 set (MATH_SOURCE_FILES
