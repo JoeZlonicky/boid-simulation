@@ -11,6 +11,7 @@ set (FILES_TO_TEST
 )
 
 set (TEST_FILES
+        test_matrix_3.cpp
         test_matrix_4.cpp
         test_quaternion.cpp
         test_vector_3.cpp
