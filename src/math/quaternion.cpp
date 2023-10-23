@@ -28,7 +28,24 @@ void Quaternion::set(float x, float y, float z, float w) {
     this->w = w;
 }
 
-Matrix4 Quaternion::calcRotationMatrix() const {
+Matrix3 Quaternion::calcRotationMatrix3() const {
+    float x2 = x * x;
+    float y2 = y * y;
+    float z2 = z * z;
+    float xy = x * y;
+    float xz = x * z;
+    float yz = y * z;
+    float wx = w * x;
+    float wy = w * y;
+    float wz = w * z;
+    return {
+            1.f - 2.f * (y2 + z2), 2.f * (xy - wz), 2.f * (xz + wy),
+            2.f * (xy + wz), 1.f - 2.f * (x2 + z2), 2.f * (yz - wx),
+            2.f * (xz - wy), 2.f * (yz + wx), 1.f - 2.f * (x2 + y2),
+    };
+}
+
+Matrix4 Quaternion::calcRotationMatrix4() const {
     float x2 = x * x;
     float y2 = y * y;
     float z2 = z * z;

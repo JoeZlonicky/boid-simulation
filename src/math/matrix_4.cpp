@@ -1,12 +1,12 @@
 #include "matrix_4.h"
 
 
-float& Matrix4::operator()(int i, int j) {
-    return n[j][i];
-}
-
-const float& Matrix4::operator()(int i, int j) const {
-    return n[j][i];
+void Matrix4::set(float n00, float n01, float n02, float n03, float n10, float n11, float n12, float n13, float n20,
+                  float n21, float n22, float n23, float n30, float n31, float n32, float n33) {
+    n[0][0] = n00; n[1][0] = n01; n[2][0] = n02; n[3][0] = n03;
+    n[0][1] = n10; n[1][1] = n11; n[2][1] = n12; n[3][1] = n13;
+    n[0][2] = n20; n[1][2] = n21;n[2][2] = n22; n[3][2] = n23;
+    n[0][3] = n30; n[1][3] = n31;n[2][3] = n32; n[3][3] = n33;
 }
 
 Vector4& Matrix4::getColumn(int j) {
@@ -17,12 +17,12 @@ const Vector4& Matrix4::getColumn(int j) const {
     return (*reinterpret_cast<const Vector4*>(n[j]));
 }
 
-void Matrix4::set(float n00, float n01, float n02, float n03, float n10, float n11, float n12, float n13, float n20,
-                  float n21, float n22, float n23, float n30, float n31, float n32, float n33) {
-    n[0][0] = n00; n[1][0] = n01; n[2][0] = n02; n[3][0] = n03;
-    n[0][1] = n10; n[1][1] = n11; n[2][1] = n12; n[3][1] = n13;
-    n[0][2] = n20; n[1][2] = n21;n[2][2] = n22; n[3][2] = n23;
-    n[0][3] = n30; n[1][3] = n31;n[2][3] = n32; n[3][3] = n33;
+float& Matrix4::operator()(int i, int j) {
+    return n[j][i];
+}
+
+const float& Matrix4::operator()(int i, int j) const {
+    return n[j][i];
 }
 
 Matrix4 &Matrix4::operator*=(const Matrix4 &b) {
@@ -52,12 +52,12 @@ Matrix4 &Matrix4::operator*=(const Matrix4 &b) {
 }
 
 Matrix4 &Matrix4::operator*=(float s) {
-    const Matrix4& a = (*this);
+    const Matrix4& m = (*this);
     set(
-            s * a(0, 0), s * a(0, 1), s * a(0, 2), s * a(0, 3),
-            s * a(1, 0), s * a(1, 1), s * a(1, 2), s * a(1, 3),
-            s * a(2, 0), s * a(2, 1), s * a(2, 2), s * a(2, 3),
-            s * a(3, 0), s * a(3, 1), s * a(3, 2), s * a(3, 3));
+            s * m(0, 0), s * m(0, 1), s * m(0, 2), s * m(0, 3),
+            s * m(1, 0), s * m(1, 1), s * m(1, 2), s * m(1, 3),
+            s * m(2, 0), s * m(2, 1), s * m(2, 2), s * m(2, 3),
+            s * m(3, 0), s * m(3, 1), s * m(3, 2), s * m(3, 3));
     return *this;
 }
 

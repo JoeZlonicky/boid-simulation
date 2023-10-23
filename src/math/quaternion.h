@@ -4,6 +4,7 @@
 #include <cmath>
 #include "vector_3.h"
 #include "matrix_4.h"
+#include "matrix_3.h"
 
 // Implementation takes inspiration from
 // 1) Foundation of Game Engine Development, Volume 1: Mathematics by Eric Lengyel
@@ -25,7 +26,8 @@ struct Quaternion {
     Quaternion(Vector3 axis, float angle_degrees);
 
     void set(float x, float y, float z, float w);
-    [[nodiscard]] Matrix4 calcRotationMatrix() const;
+    [[nodiscard]] Matrix3 calcRotationMatrix3() const;
+    [[nodiscard]] Matrix4 calcRotationMatrix4() const;
 
     [[nodiscard]] Vector3& getVectorPart();
     [[nodiscard]] const Vector3& getVectorPart() const;

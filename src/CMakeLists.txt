@@ -9,6 +9,7 @@ set (ENGINE_SOURCE_FILES
 )
 
 set (MATH_SOURCE_FILES
+        math/matrix_3.cpp
         math/matrix_4.cpp
         math/transform.cpp
         math/quaternion.cpp

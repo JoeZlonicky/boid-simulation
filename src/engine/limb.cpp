@@ -101,10 +101,9 @@ void Limb::draw(Shader& shader, const Matrix4& projectionViewMatrix) {
 
 Vector3 Limb::getEnd() const {
     const float length = 1.0f;
-    Vector4 unit {1, 0, 0, 0};
-    Vector4 direction = transform_.getRotation().calcRotationMatrix() * unit;
-    Vector3 direction3 = {direction.x, direction.y, direction.z};
-    const Vector3 end = transform_.getPosition() + direction3.normalized() * length;
+    Vector3 unit {1, 0, 0};
+    Vector3 direction = transform_.getRotation().calcRotationMatrix3() * unit;
+    const Vector3 end = transform_.getPosition() + direction.normalized() * length;
     return end;
 }
 

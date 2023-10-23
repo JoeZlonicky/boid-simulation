@@ -119,7 +119,7 @@ void Transform::updatePositionMatrix() {
 }
 
 void Transform::updateRotationMatrix() {
-    rotation_matrix_ = rotation_.calcRotationMatrix();
+    rotation_matrix_ = rotation_.calcRotationMatrix4();
     is_rotation_dirty_ = false;
 }
 
