@@ -16,13 +16,13 @@ public:
 private:
     void drawCube(Cube& cube);
 
-    Shader* shader;
-    Camera* camera;
+    Shader* shader_;
+    Camera* camera_;
 
-    Cube topCube {};
-    Cube rightCube {};
-    Cube cornerCube {};
-    Cube centerCube {};
+    Cube top_cube_ {};
+    Cube right_cube_ {};
+    Cube corner_cube {};
+    Cube center_cube_ {};
 };
 
 #endif
