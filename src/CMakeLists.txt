@@ -3,11 +3,10 @@ include_directories(.)
 
 set (ENGINE_SOURCE_FILES
         engine/camera.cpp
-        engine/demo.cpp
+        demo/demo.cpp
         engine/cube.cpp
         engine/shader.cpp
         engine/window.cpp
-        engine/drawing.cpp
 )
 
 set (MATH_SOURCE_FILES

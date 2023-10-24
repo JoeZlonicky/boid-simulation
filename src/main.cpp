@@ -1,12 +1,9 @@
 #include <iostream>
-#include <vector>
 #include "glad/glad.h"  // Needs to be included before GLFW
 #include <GLFW/glfw3.h>
 
 #include "engine/camera.h"
-#include "engine/drawing.h"
-#include "engine/demo.h"
-#include "engine/cube.h"
+#include "demo/demo.h"
 #include "engine/shader.h"
 #include "engine/window.h"
 
@@ -31,24 +28,18 @@ int main() {
         return 1;
     }
 
-    std::vector<Cube> cubes {1};
-
     Camera camera {{0.f, 1.f, 10.f},
                    {0.f, 0.f, 0.f},
                    (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT};
     window.setCamera(&camera);
 
-    drawing::init();
-    auto last_frame_time = static_cast<float>(glfwGetTime());
+    Demo demo {&shader, &camera};
+
     while (window.shouldKeepOpen()) {
-        auto current_frame_time = static_cast<float>(glfwGetTime());
-        float delta_time = current_frame_time - last_frame_time;
-        last_frame_time = current_frame_time;
+        auto current_time = static_cast<float>(glfwGetTime());
 
-        demo::perform(cubes, current_frame_time);
-
-        drawing::clear();
-        drawing::drawCubes(cubes, shader, camera);
+        demo.update(current_time);
+        demo.render();
 
         window.refresh();
         glfwPollEvents();
