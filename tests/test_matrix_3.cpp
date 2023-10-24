@@ -1,4 +1,3 @@
-
 #include "math/matrix_3.h"
 
 #include <gtest/gtest.h>
