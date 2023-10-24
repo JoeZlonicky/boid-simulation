@@ -1,5 +1,5 @@
-#ifndef IK_DEMO_CAMERA_H_
-#define IK_DEMO_CAMERA_H_
+#ifndef OPENGL_DEMO_CAMERA_H_
+#define OPENGL_DEMO_CAMERA_H_
 
 #include "math/vector_3.h"
 #include "math/matrix_4.h"

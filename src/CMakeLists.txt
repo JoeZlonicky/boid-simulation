@@ -19,11 +19,11 @@ set (MATH_SOURCE_FILES
         math/vector_4.cpp
 )
 
-add_executable(ik-demo
+add_executable(opengl-demo
         main.cpp
         ../external/glad/src/glad.c
         ${ENGINE_SOURCE_FILES}
         ${MATH_SOURCE_FILES}
 )
 
-target_link_libraries(ik-demo glfw ${OPENGL_gl_LIBRARY})
+target_link_libraries(opengl-demo glfw ${OPENGL_gl_LIBRARY})

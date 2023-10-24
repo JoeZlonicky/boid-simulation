@@ -1,5 +1,5 @@
-#ifndef IK_DEMO_DEMO_H
-#define IK_DEMO_DEMO_H
+#ifndef OPENGL_DEMO_DEMO_H
+#define OPENGL_DEMO_DEMO_H
 
 #include <vector>
 #include "cube.h"

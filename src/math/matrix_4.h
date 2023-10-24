@@ -1,5 +1,5 @@
-#ifndef IK_DEMO_MATRIX_4_H_
-#define IK_DEMO_MATRIX_4_H_
+#ifndef OPENGL_DEMO_MATRIX_4_H_
+#define OPENGL_DEMO_MATRIX_4_H_
 
 #include "vector_4.h"
 

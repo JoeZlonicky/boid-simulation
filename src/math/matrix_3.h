@@ -1,5 +1,5 @@
-#ifndef IK_DEMO_MATRIX_3_H
-#define IK_DEMO_MATRIX_3_H
+#ifndef OPENGL_DEMO_MATRIX_3_H
+#define OPENGL_DEMO_MATRIX_3_H
 
 #include "vector_3.h"
 

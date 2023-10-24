@@ -1,5 +1,5 @@
-#ifndef IK_DEMO_WINDOW_H
-#define IK_DEMO_WINDOW_H
+#ifndef OPENGL_DEMO_WINDOW_H
+#define OPENGL_DEMO_WINDOW_H
 
 #include <string>
 #include "camera.h"

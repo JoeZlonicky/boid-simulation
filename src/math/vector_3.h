@@ -1,5 +1,5 @@
-#ifndef IK_DEMO_VECTOR_3_H_
-#define IK_DEMO_VECTOR_3_H_
+#ifndef OPENGL_DEMO_VECTOR_3_H_
+#define OPENGL_DEMO_VECTOR_3_H_
 
 // Implementation takes inspiration from
 // 1) Foundation of Game Engine Development, Volume 1: Mathematics by Eric Lengyel

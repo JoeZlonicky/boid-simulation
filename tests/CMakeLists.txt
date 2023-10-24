@@ -20,12 +20,12 @@ set (TEST_FILES
         test_vector_4.cpp
 )
 
-add_executable(ik-demo-tests
+add_executable(opengl-demo-tests
         main.cpp
         testing_utility.h
         ${FILES_TO_TEST}
         ${TEST_FILES}
 )
 
-target_link_libraries(ik-demo-tests gtest gtest_main)
+target_link_libraries(opengl-demo-tests gtest gtest_main)
 

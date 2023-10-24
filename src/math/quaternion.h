@@ -1,5 +1,5 @@
-#ifndef IK_DEMO_QUATERNION_H_
-#define IK_DEMO_QUATERNION_H_
+#ifndef OPENGL_DEMO_QUATERNION_H_
+#define OPENGL_DEMO_QUATERNION_H_
 
 #include <cmath>
 #include "vector_3.h"

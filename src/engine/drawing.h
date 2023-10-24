@@ -1,5 +1,5 @@
-#ifndef IK_DEMO_DRAWING_H
-#define IK_DEMO_DRAWING_H
+#ifndef OPENGL_DEMO_DRAWING_H
+#define OPENGL_DEMO_DRAWING_H
 
 #include <vector>
 

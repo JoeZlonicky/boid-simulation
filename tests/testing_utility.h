@@ -1,5 +1,5 @@
-#ifndef IK_DEMO_TESTING_UTILITY_H_
-#define IK_DEMO_TESTING_UTILITY_H_
+#ifndef OPENGL_DEMO_TESTING_UTILITY_H_
+#define OPENGL_DEMO_TESTING_UTILITY_H_
 
 #include <gtest/gtest.h>
 #include "math/matrix_3.h"

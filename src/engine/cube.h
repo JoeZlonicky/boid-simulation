@@ -1,5 +1,5 @@
-#ifndef IK_DEMO_CUBE_H_
-#define IK_DEMO_CUBE_H_
+#ifndef OPENGL_DEMO_CUBE_H_
+#define OPENGL_DEMO_CUBE_H_
 
 #include <string>
 #include "math/matrix_4.h"
