@@ -13,7 +13,7 @@ constexpr int WINDOW_HEIGHT = 720;
 int main() {
     Window window {};
     try {
-        window.init("Hello, world!", WINDOW_WIDTH, WINDOW_HEIGHT);
+        window.init("OpenGL Demo", WINDOW_WIDTH, WINDOW_HEIGHT);
     } catch (const char* e) {
         std::cerr << e << std::endl;
         return 1;
