@@ -1,5 +1,7 @@
-# IK Demo
-My progress making an inverse kinematics demo with OpenGL.
+# OpenGL Demo
+An OpenGL demo. Features include:
+* Vector3, Vector4, Matrix3, Matrix4, Quaternion, and Transform implementations for the scope of the project
+* Window, Camera, Cube, and Shader classes to encapsulate most of the raw OpenGL functions
 
 ## Running from CLI
 1. `cmake -B build`
