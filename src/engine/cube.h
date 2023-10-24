@@ -12,6 +12,9 @@ public:
     Cube();
     ~Cube();
 
+    Cube(const Cube&) = delete;  // TODO: Implement
+    Cube& operator=(const Cube&) = delete;  // TODO: Implement
+
     [[nodiscard]] unsigned int getVAO() const;
     [[nodiscard]] int getVertexCount() const;
     [[nodiscard]] const Transform& getTransform() const;

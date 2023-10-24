@@ -7,7 +7,11 @@
 
 class Shader {
 public:
+    Shader() = default;
     ~Shader();
+
+    Shader(const Shader&) = delete;  // TODO: Implement
+    Shader& operator=(const Shader&) = delete;  // TODO: Implement
 
     void create(const char* vertex_shader_path, const char* fragment_shader_path);
     void activate() const;

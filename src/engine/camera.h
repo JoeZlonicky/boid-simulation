@@ -6,6 +6,7 @@
 
 class Camera {
 public:
+    Camera() = default;
     Camera(Vector3 pos, Vector3 target, float aspect_ratio);
 
     void setPos(Vector3 pos);
