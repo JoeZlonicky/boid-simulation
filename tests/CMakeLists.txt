@@ -6,6 +6,7 @@ set (FILES_TO_TEST
         ../src/math/matrix_3.cpp
         ../src/math/matrix_4.cpp
         ../src/math/quaternion.cpp
+        ../src/math/transform.cpp
         ../src/math/vector_3.cpp
         ../src/math/vector_4.cpp
 )
@@ -14,6 +15,7 @@ set (TEST_FILES
         test_matrix_3.cpp
         test_matrix_4.cpp
         test_quaternion.cpp
+        test_transform.cpp
         test_vector_3.cpp
         test_vector_4.cpp
 )
