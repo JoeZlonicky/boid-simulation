@@ -5,8 +5,8 @@
 
 #include "engine/camera.h"
 #include "engine/drawing.h"
-#include "engine/inverse_kinematics.h"
-#include "engine/limb.h"
+#include "engine/demo.h"
+#include "engine/cube.h"
 #include "engine/shader.h"
 #include "engine/window.h"
 
@@ -31,9 +31,9 @@ int main() {
         return 1;
     }
 
-    std::vector<Limb> limbs {5};
+    std::vector<Cube> cubes {1};
 
-    Camera camera {{5.f, 5.f, 10.f},
+    Camera camera {{0.f, 1.f, 10.f},
                    {0.f, 0.f, 0.f},
                    (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT};
     window.setCamera(&camera);
@@ -45,10 +45,10 @@ int main() {
         float delta_time = current_frame_time - last_frame_time;
         last_frame_time = current_frame_time;
 
-        inverse_kinematics::perform(limbs, current_frame_time);
+        demo::perform(cubes, current_frame_time);
 
         drawing::clear();
-        drawing::drawLimbs(limbs, shader, camera);
+        drawing::drawCubes(cubes, shader, camera);
 
         window.refresh();
         glfwPollEvents();

@@ -5,20 +5,20 @@
 #include "shader.h"
 
 namespace {
-    void drawLimb(Limb& limb, Shader& shader) {
-        glBindVertexArray(limb.getVAO());
-        shader.setUniform("model", limb.getTransform().getMatrix());
+    void drawCube(Cube& cube, Shader& shader) {
+        glBindVertexArray(cube.getVAO());
+        shader.setUniform("model", cube.getTransform().getMatrix());
 
         shader.setUniform("color", 0.4, 0.0, 0.0, 1.0);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glPolygonOffset(0.0f, 1.0f);
-        glDrawArrays(GL_TRIANGLES, 0, limb.getVertexCount());
+        glDrawArrays(GL_TRIANGLES, 0, cube.getVertexCount());
 
         shader.setUniform("color", 1.0, 0.0, 0.0, 1.0);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glLineWidth(2.0f);
         glPolygonOffset(10.0f, 1.0f);
-        glDrawArrays(GL_TRIANGLES, 0, limb.getVertexCount());
+        glDrawArrays(GL_TRIANGLES, 0, cube.getVertexCount());
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glLineWidth(1.0f);
@@ -37,12 +37,12 @@ namespace drawing {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    void drawLimbs(std::vector<Limb>& limbs, Shader& shader, Camera& camera) {
+    void drawCubes(std::vector<Cube>& cubes, Shader& shader, Camera& camera) {
         shader.activate();
         shader.setUniform("projection_view", camera.getProjectionViewMatrix());
 
-        for (Limb& limb : limbs) {
-            drawLimb(limb, shader);
+        for (Cube& cube : cubes) {
+            drawCube(cube, shader);
         }
     }
 }

@@ -1,5 +1,5 @@
-#ifndef IK_DEMO_LIMB_H_
-#define IK_DEMO_LIMB_H_
+#ifndef IK_DEMO_CUBE_H_
+#define IK_DEMO_CUBE_H_
 
 #include <string>
 #include "math/matrix_4.h"
@@ -7,10 +7,10 @@
 
 class Shader;
 
-class Limb {
+class Cube {
 public:
-    Limb();
-    ~Limb();
+    Cube();
+    ~Cube();
 
     [[nodiscard]] unsigned int getVAO() const;
     [[nodiscard]] int getVertexCount() const;

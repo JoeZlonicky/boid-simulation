@@ -3,13 +3,13 @@
 
 #include <vector>
 
-#include "limb.h"
+#include "cube.h"
 #include "camera.h"
 
 namespace drawing {
     void init();
     void clear();
-    void drawLimbs(std::vector<Limb>& limbs, Shader& shader, Camera& camera);
+    void drawCubes(std::vector<Cube>& cubes, Shader& shader, Camera& camera);
 }
 
 #endif
