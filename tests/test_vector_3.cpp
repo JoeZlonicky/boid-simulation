@@ -92,3 +92,11 @@ TEST(Vector3, CrossProduct) {
     Vector3 v3 = v1.cross(v2);
     assertVectorValues(v3, 0.f, 0.f, 1.f);
 }
+
+TEST(Vector3, DotProduct) {
+    Vector3 v1 {1.f, 2.f, 3.f};
+    Vector3 v2 {4.f, 5.f, 6.f};
+    float dot_product = v1.dot(v2);
+    float expected_dot_product = 1.f * 4.f + 2.f * 5.f + 3.f * 6.f;
+    ASSERT_FLOAT_EQ(dot_product, expected_dot_product);
+}

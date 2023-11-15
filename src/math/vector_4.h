@@ -34,6 +34,7 @@ struct Vector4 {
     void normalize();
     [[nodiscard]] Vector4 normalized() const;
     [[nodiscard]] float magnitude() const;
+    [[nodiscard]] float dot(const Vector4& v) const;
 };
 
 Vector4 operator*(Vector4 v, float s);

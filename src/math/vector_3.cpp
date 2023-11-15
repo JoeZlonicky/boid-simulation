@@ -62,6 +62,10 @@ Vector3 Vector3::cross(const Vector3 &v) const {
             x * v.y - y * v.x};
 }
 
+float Vector3::dot(const Vector3 &v) const {
+    return x * v.x + y * v.y + z * v.z;
+}
+
 Vector3 operator*(Vector3 v, const float s) {
     v *= s;
     return v;

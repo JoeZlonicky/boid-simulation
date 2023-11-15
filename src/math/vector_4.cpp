@@ -59,6 +59,10 @@ float Vector4::magnitude() const {
     return (std::sqrt(x * x + y * y + z * z + w * w));
 }
 
+float Vector4::dot(const Vector4 &v) const {
+    return x * v.x + y * v.y + z * v.z + w * v.w;
+}
+
 Vector4 operator*(Vector4 v, const float s) {
     v *= s;
     return v;

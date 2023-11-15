@@ -92,3 +92,11 @@ TEST(Vector4, Normalize) {
     v.normalize();
     ASSERT_FLOAT_EQ(v.magnitude(), 1.f);
 }
+
+TEST(Vector4, DotProduct) {
+    Vector4 v1 {1.f, 2.f, 3.f, 4.f};
+    Vector4 v2 {5.f, 6.f, 7.f, 8.f};
+    float dot_product = v1.dot(v2);
+    float expected_dot_product = 1.f * 5.f + 2.f * 6.f + 3.f * 7.f + 4.f * 8.f;
+    ASSERT_FLOAT_EQ(dot_product, expected_dot_product);
+}
