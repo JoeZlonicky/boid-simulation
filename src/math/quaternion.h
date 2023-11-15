@@ -21,11 +21,13 @@ struct Quaternion {
     };
 
     Quaternion() : Quaternion({1.0f, 0.f, 0.f}, 0.f) {}
+
     Quaternion(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
 
     Quaternion(Vector3 axis, float angle_degrees);
 
     void set(float x, float y, float z, float w);
+
     [[nodiscard]] Matrix3 calcRotationMatrix3() const;
     [[nodiscard]] Matrix4 calcRotationMatrix4() const;
 

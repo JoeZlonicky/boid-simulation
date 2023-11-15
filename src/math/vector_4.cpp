@@ -7,7 +7,7 @@ Vector4::Vector4(const float value) : x(value), y(value), z(value), w(value) {}
 
 Vector4::Vector4(const float x, const float y, const float z, const float w) : x(x), y(y), z(z), w(w) {}
 
-Vector4::Vector4(const Vector3 &v, const float w) : x(v.x), y(v.y), z(v.z), w(w) {}
+Vector4::Vector4(const Vector3& v, const float w) : x(v.x), y(v.y), z(v.z), w(w) {}
 
 float& Vector4::operator[](const int i) {
     return components[i];
@@ -39,7 +39,7 @@ Vector4& Vector4::operator+=(const Vector4& v) {
     return *this;
 }
 
-Vector4& Vector4::operator-=(const Vector4&v) {
+Vector4& Vector4::operator-=(const Vector4& v) {
     x -= v.x;
     y -= v.y;
     z -= v.z;
@@ -59,7 +59,7 @@ float Vector4::magnitude() const {
     return (std::sqrt(x * x + y * y + z * z + w * w));
 }
 
-float Vector4::dot(const Vector4 &v) const {
+float Vector4::dot(const Vector4& v) const {
     return x * v.x + y * v.y + z * v.z + w * v.w;
 }
 

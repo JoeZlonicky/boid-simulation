@@ -22,20 +22,29 @@ struct Vector3 {
     const float& operator[](int i) const;
 
     Vector3& operator*=(float s);
+
     Vector3& operator/=(float s);
+
     Vector3& operator+=(const Vector3& v);
+
     Vector3& operator-=(const Vector3& v);
 
     void normalize();
     [[nodiscard]] Vector3 normalized() const;
+
     [[nodiscard]] float magnitude() const;
+
     [[nodiscard]] Vector3 cross(const Vector3& v) const;
+
     [[nodiscard]] float dot(const Vector3& v) const;
 };
 
 Vector3 operator*(Vector3 v, float s);
+
 Vector3 operator/(Vector3 v, float s);
+
 Vector3 operator+(Vector3 a, const Vector3& b);
+
 Vector3 operator-(Vector3 a, const Vector3& b);
 Vector3 operator-(Vector3 v);
 

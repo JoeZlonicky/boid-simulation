@@ -27,13 +27,18 @@ struct Vector4 {
     const float& operator[](int i) const;
 
     Vector4& operator*=(float s);
+
     Vector4& operator/=(float s);
+
     Vector4& operator+=(const Vector4& v);
+
     Vector4& operator-=(const Vector4& v);
 
     void normalize();
     [[nodiscard]] Vector4 normalized() const;
+
     [[nodiscard]] float magnitude() const;
+    
     [[nodiscard]] float dot(const Vector4& v) const;
 };
 

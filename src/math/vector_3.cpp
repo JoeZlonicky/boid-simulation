@@ -37,7 +37,7 @@ Vector3& Vector3::operator+=(const Vector3& v) {
     return *this;
 }
 
-Vector3& Vector3::operator-=(const Vector3&v) {
+Vector3& Vector3::operator-=(const Vector3& v) {
     x -= v.x;
     y -= v.y;
     z -= v.z;
@@ -56,13 +56,13 @@ float Vector3::magnitude() const {
     return (std::sqrt(x * x + y * y + z * z));
 }
 
-Vector3 Vector3::cross(const Vector3 &v) const {
+Vector3 Vector3::cross(const Vector3& v) const {
     return {y * v.z - z * v.y,
             z * v.x - x * v.z,
             x * v.y - y * v.x};
 }
 
-float Vector3::dot(const Vector3 &v) const {
+float Vector3::dot(const Vector3& v) const {
     return x * v.x + y * v.y + z * v.z;
 }
 
