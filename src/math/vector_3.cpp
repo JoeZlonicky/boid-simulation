@@ -3,15 +3,21 @@
 #include <cmath>
 
 
-float& Vector3::operator[](int i) {
+Vector3::Vector3() : x(0.f), y(0.f), z(0.f) {}
+
+Vector3::Vector3(float value) : x(value), y(value), z(value) {}
+
+Vector3::Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
+
+float& Vector3::operator[](const int i) {
     return components[i];
 }
 
-const float& Vector3::operator[](int i) const {
+const float& Vector3::operator[](const int i) const {
     return components[i];
 }
 
-Vector3& Vector3::operator*=(float s) {
+Vector3& Vector3::operator*=(const float s) {
     x *= s;
     y *= s;
     z *= s;
@@ -56,12 +62,12 @@ Vector3 Vector3::cross(const Vector3 &v) const {
             x * v.y - y * v.x};
 }
 
-Vector3 operator*(Vector3 v, float s) {
+Vector3 operator*(Vector3 v, const float s) {
     v *= s;
     return v;
 }
 
-Vector3 operator/(Vector3 v, float s) {
+Vector3 operator/(Vector3 v, const float s) {
     v /= s;
     return v;
 }

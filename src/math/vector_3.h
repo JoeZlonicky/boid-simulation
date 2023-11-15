@@ -14,9 +14,9 @@ struct Vector3 {
         float components[3] = {0.f};
     };
 
-    Vector3() : x(0.f), y(0.f), z(0.f) {}
-    explicit Vector3(float value) : x(value), y(value), z(value) {}
-    Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
+    Vector3();
+    explicit Vector3(float value);
+    Vector3(float x, float y, float z);
 
     float& operator[](int i);
     const float& operator[](int i) const;

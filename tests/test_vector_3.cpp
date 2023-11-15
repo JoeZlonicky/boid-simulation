@@ -6,7 +6,7 @@
 
 
 TEST(Vector3, DefaultConstruction) {
-    Vector3 v;
+    Vector3 v {};
     assertVectorValues(v, 0.f, 0.f, 0.f);
 }
 
@@ -27,7 +27,7 @@ TEST(Vector3, CopyConstruction) {
 }
 
 TEST(Vector3, PropertyAssignment) {
-    Vector3 v;
+    Vector3 v {};
     v.x = 1.f;
     v.y = 2.f;
     v.z = 3.f;
@@ -35,7 +35,7 @@ TEST(Vector3, PropertyAssignment) {
 }
 
 TEST(Vector3, IndexAssignment) {
-    Vector3 v;
+    Vector3 v {};
     v[0] = 1.f;
     v[1] = 2.f;
     v[2] = 3.f;
