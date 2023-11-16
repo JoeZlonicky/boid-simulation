@@ -12,15 +12,9 @@ constexpr int WINDOW_HEIGHT = 720;
 
 int main() {
     Window window {"OpenGL Demo", WINDOW_WIDTH, WINDOW_HEIGHT};
-
-    Shader shader {};
-    try {
-        shader.create("shaders/default_vertex_shader.vert",
-                      "shaders/default_fragment_shader.frag");
-    } catch (const std::runtime_error& e) {
-        std::cerr << e.what() << std::endl;
-        return 1;
-    }
+    
+    Shader shader {"shaders/default_vertex_shader.vert",
+                   "shaders/default_fragment_shader.frag"};
 
     Camera camera {{0.f, 1.f, 20.f},
                    {0.f, 0.f, 0.f},

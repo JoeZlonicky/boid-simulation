@@ -3,22 +3,20 @@
 #include <iostream>
 #include <fstream>
 
+Shader::Shader(const char* vertex_shader_path, const char* fragment_shader_path) {
+    try {
+        unsigned int vertex_shader = compileShader(GL_VERTEX_SHADER, vertex_shader_path);
+        unsigned int fragment_shader = compileShader(GL_FRAGMENT_SHADER, fragment_shader_path);
+        linkProgram(vertex_shader, fragment_shader);
+    } catch (const std::runtime_error& e) {
+        throw e;
+    }
+}
+
 Shader::~Shader() {
     if (id_ != 0) {
         glDeleteProgram(id_);
         id_ = 0;
-    }
-}
-
-void Shader::create(const char* vertex_shader_path, const char* fragment_shader_path) {
-    unsigned int vertex_shader;
-    unsigned int fragment_shader;
-    try {
-        vertex_shader = compileShader(GL_VERTEX_SHADER, vertex_shader_path);
-        fragment_shader = compileShader(GL_FRAGMENT_SHADER, fragment_shader_path);
-        linkProgram(vertex_shader, fragment_shader);
-    } catch (const std::runtime_error& e) {
-        throw e;
     }
 }
 

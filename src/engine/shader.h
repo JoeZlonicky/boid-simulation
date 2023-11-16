@@ -7,13 +7,12 @@
 
 class Shader {
 public:
-    Shader() = default;
+    Shader(const char* vertex_shader_path, const char* fragment_shader_path);
     ~Shader();
 
-    Shader(const Shader&) = delete;  // TODO: Implement
-    Shader& operator=(const Shader&) = delete;  // TODO: Implement
+    Shader(const Shader&) = delete;
+    Shader& operator=(const Shader&) = delete;
 
-    void create(const char* vertex_shader_path, const char* fragment_shader_path);
     void activate() const;
     void setUniform(const std::string& name, bool value) const;
     void setUniform(const std::string& name, int value) const;
@@ -26,7 +25,7 @@ private:
     static unsigned int compileShader(GLenum shader_type, const std::string& file_path);
     void linkProgram(unsigned int vertex_shader, unsigned int fragment_shader);
 
-    unsigned int id_;
+    unsigned int id_ = 0;
 };
 
 #endif

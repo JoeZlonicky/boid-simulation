@@ -21,11 +21,11 @@ Window::Window(const std::string& title, const int width, const int height) {
         glfwTerminate();
         throw std::runtime_error("Failed to create GLFW window");
     }
-
     glfwMakeContextCurrent(glfw_window_);
+
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
         glfwTerminate();
-        throw std::runtime_error("Failed to create GLFW window");
+        throw std::runtime_error("Failed to load OpenGL");
     }
 
     glViewport(0, 0, width, height);
