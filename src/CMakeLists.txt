@@ -1,15 +1,15 @@
 include_directories(../external/glad/include)
 include_directories(.)
 
-set (ENGINE_SOURCE_FILES
+set(ENGINE_SOURCE_FILES
         engine/camera.cpp
         demo/demo.cpp
-        engine/cube.cpp
+        engine/model.cpp
         engine/shader.cpp
         engine/window.cpp
 )
 
-set (MATH_SOURCE_FILES
+set(MATH_SOURCE_FILES
         math/matrix_3.cpp
         math/matrix_4.cpp
         math/transform.cpp

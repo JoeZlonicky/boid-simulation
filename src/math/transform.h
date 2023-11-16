@@ -25,6 +25,7 @@ public:
     void moveZ(float z);
 
     void setScale(float x, float y, float z);
+    void setScale(float s);
     void setScaleX(float x);
     void setScaleY(float y);
     void setScaleZ(float z);
@@ -39,18 +40,18 @@ private:
     void updateRotationMatrix();
     void updateScaleMatrix();
 
-    Vector3 position_{0.f};
-    Quaternion rotation_{};
-    Vector3 scale_{1.f};
+    Vector3 position_ {0.f};
+    Quaternion rotation_ {};
+    Vector3 scale_ {1.f};
 
     bool is_position_dirty_ = true;
     bool is_rotation_dirty_ = true;
     bool is_scale_dirty_ = true;
-    Matrix4 position_matrix_{1.f};
-    Matrix4 scale_matrix_{1.f};
-    Matrix4 rotation_matrix_{1.f};
+    Matrix4 position_matrix_ {1.f};
+    Matrix4 scale_matrix_ {1.f};
+    Matrix4 rotation_matrix_ {1.f};
 
-    Matrix4 matrix_{0.f};
+    Matrix4 matrix_ {0.f};
 };
 
 #endif

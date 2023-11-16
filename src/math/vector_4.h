@@ -38,7 +38,7 @@ struct Vector4 {
     [[nodiscard]] Vector4 normalized() const;
 
     [[nodiscard]] float magnitude() const;
-    
+
     [[nodiscard]] float dot(const Vector4& v) const;
 };
 

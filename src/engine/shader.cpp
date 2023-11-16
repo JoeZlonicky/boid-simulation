@@ -10,7 +10,7 @@ Shader::~Shader() {
     }
 }
 
-void Shader::create(const char *vertex_shader_path, const char *fragment_shader_path) {
+void Shader::create(const char* vertex_shader_path, const char* fragment_shader_path) {
     unsigned int vertex_shader;
     unsigned int fragment_shader;
     try {
@@ -26,23 +26,23 @@ void Shader::activate() const {
     glUseProgram(id_);
 }
 
-void Shader::setUniform(const std::string &name, bool value) const {
-    glUniform1i(glGetUniformLocation(id_, name.c_str()), (int)value);
+void Shader::setUniform(const std::string& name, bool value) const {
+    glUniform1i(glGetUniformLocation(id_, name.c_str()), (int) value);
 }
 
-void Shader::setUniform(const std::string &name, int value) const {
+void Shader::setUniform(const std::string& name, int value) const {
     glUniform1i(glGetUniformLocation(id_, name.c_str()), value);
 }
 
-void Shader::setUniform(const std::string &name, float value) const {
+void Shader::setUniform(const std::string& name, float value) const {
     glUniform1f(glGetUniformLocation(id_, name.c_str()), value);
 }
 
-void Shader::setUniform(const std::string & name, float x, float y, float z, float w) const {
+void Shader::setUniform(const std::string& name, float x, float y, float z, float w) const {
     glUniform4f(glGetUniformLocation(id_, name.c_str()), x, y, z, w);
 }
 
-void Shader::setUniform(const std::string & name, const Matrix4& matrix) const {
+void Shader::setUniform(const std::string& name, const Matrix4& matrix) const {
     glUniformMatrix4fv(glGetUniformLocation(id_, name.c_str()), 1, GL_FALSE, &matrix(0, 0));
 }
 
@@ -55,7 +55,7 @@ std::string Shader::readFromFile(const std::string& file_path) {
     return {std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>()};
 }
 
-unsigned int Shader::compileShader(GLenum shader_type, const std::string &file_path) {
+unsigned int Shader::compileShader(GLenum shader_type, const std::string& file_path) {
     std::string shader_source;
     try {
         shader_source = readFromFile(file_path);

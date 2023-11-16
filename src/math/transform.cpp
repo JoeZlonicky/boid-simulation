@@ -66,6 +66,10 @@ void Transform::setScale(float x, float y, float z) {
     setScaleZ(z);
 }
 
+void Transform::setScale(float s) {
+    setScale(s, s, s);
+}
+
 void Transform::setScaleX(float x) {
     scale_.x = x;
     is_scale_dirty_ = true;

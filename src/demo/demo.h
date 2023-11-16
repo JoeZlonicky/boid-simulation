@@ -2,27 +2,27 @@
 #define OPENGL_DEMO_DEMO_H
 
 #include <vector>
-#include "engine/cube.h"
+#include "engine/model.h"
 #include "engine/camera.h"
 #include "engine/shader.h"
-
+#include "math/transform.h"
 
 class Demo {
 public:
     Demo(Shader* shader, Camera* camera);
+
     void render();
     void update(float time);
 
 private:
-    void drawCube(Cube& cube);
+    void drawBoid(Transform& t);
+    void generateBoids();
 
     Shader* shader_;
     Camera* camera_;
 
-    Cube top_cube_ {};
-    Cube right_cube_ {};
-    Cube corner_cube {};
-    Cube center_cube_ {};
+    std::vector<Transform> boids_ {};
+    Model boid_model_ = createCubeModel();
 };
 
 #endif

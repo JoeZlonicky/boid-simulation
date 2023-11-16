@@ -8,8 +8,7 @@ Window::~Window() {
     glfwTerminate();
 }
 
-
-void Window::init(const std::string & title, const int width, const int height) {
+void Window::init(const std::string& title, const int width, const int height) {
     width_ = width;
     height_ = height;
 
@@ -58,7 +57,7 @@ void Window::resize(int width, int height) {
     camera_->setAspectRatio(static_cast<float>(width_) / static_cast<float>(height_));
 }
 
-void Window::setCamera(Camera *camera) {
+void Window::setCamera(Camera* camera) {
     camera_ = camera;
     camera_->setAspectRatio(static_cast<float>(width_) / static_cast<float>(height_));
 }

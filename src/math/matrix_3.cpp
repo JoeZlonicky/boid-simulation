@@ -2,14 +2,14 @@
 
 #include "matrix_3.h"
 
-Matrix3::Matrix3(float diagonal) : n{{diagonal, 0.f,      0.f},
-                                     {0.f,      diagonal, 0.f},
-                                     {0.f,      0.f,      diagonal}} {}
+Matrix3::Matrix3(float diagonal) : n {{diagonal, 0.f,      0.f},
+                                      {0.f,      diagonal, 0.f},
+                                      {0.f,      0.f,      diagonal}} {}
 
 Matrix3::Matrix3(float n00, float n01, float n02, float n10, float n11, float n12, float n20, float n21, float n22) :
-        n{{n00, n10, n20},
-          {n01, n11, n21},
-          {n02, n12, n22}} {}
+        n {{n00, n10, n20},
+           {n01, n11, n21},
+           {n02, n12, n22}} {}
 
 void Matrix3::set(float n00, float n01, float n02, float n10, float n11, float n12, float n20, float n21, float n22) {
     n[0][0] = n00;

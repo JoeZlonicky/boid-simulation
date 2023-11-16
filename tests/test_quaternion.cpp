@@ -3,7 +3,6 @@
 #include <gtest/gtest.h>
 #include "testing_utility.h"
 
-
 TEST(Quaternion, Matrix3Construction) {
     Quaternion q {{1.f, 0.f, 0.f}, 0.f};
     Matrix3 m = q.calcRotationMatrix3();

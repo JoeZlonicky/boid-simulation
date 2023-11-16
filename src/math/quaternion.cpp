@@ -1,6 +1,5 @@
 #include "Quaternion.h"
 
-
 Quaternion::Quaternion(Vector3 axis, float angle_degrees) {
     axis.normalize();
 

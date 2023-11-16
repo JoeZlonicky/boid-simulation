@@ -1,17 +1,16 @@
 #include "matrix_4.h"
 
-
 Matrix4::Matrix4(float n00, float n01, float n02, float n03, float n10, float n11, float n12, float n13, float n20,
                  float n21, float n22, float n23, float n30, float n31, float n32, float n33) :
-        n{{n00, n10, n20, n30},
-          {n01, n11, n21, n31},
-          {n02, n12, n22, n32},
-          {n03, n13, n23, n33}} {}
+        n {{n00, n10, n20, n30},
+           {n01, n11, n21, n31},
+           {n02, n12, n22, n32},
+           {n03, n13, n23, n33}} {}
 
-Matrix4::Matrix4(float diagonal) : n{{diagonal, 0.f,      0.f,      0.f},
-                                     {0.f,      diagonal, 0.f,      0.f},
-                                     {0.f,      0.f,      diagonal, 0.f},
-                                     {0.f,      0.f,      0.f,      diagonal}} {}
+Matrix4::Matrix4(float diagonal) : n {{diagonal, 0.f,      0.f,      0.f},
+                                      {0.f,      diagonal, 0.f,      0.f},
+                                      {0.f,      0.f,      diagonal, 0.f},
+                                      {0.f,      0.f,      0.f,      diagonal}} {}
 
 void Matrix4::set(float n00, float n01, float n02, float n03, float n10, float n11, float n12, float n13, float n20,
                   float n21, float n22, float n23, float n30, float n31, float n32, float n33) {

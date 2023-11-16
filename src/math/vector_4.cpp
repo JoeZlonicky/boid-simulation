@@ -1,6 +1,5 @@
 #include "vector_4.h"
 
-
 Vector4::Vector4() : x(0.f), y(0.f), z(0.f), w(0.f) {}
 
 Vector4::Vector4(const float value) : x(value), y(value), z(value), w(value) {}

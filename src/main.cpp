@@ -28,9 +28,9 @@ int main() {
         return 1;
     }
 
-    Camera camera {{0.f, 1.f, 10.f},
+    Camera camera {{0.f, 1.f, 20.f},
                    {0.f, 0.f, 0.f},
-                   (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT};
+                   (float) WINDOW_WIDTH / (float) WINDOW_HEIGHT};
     window.setCamera(&camera);
 
     Demo demo {&shader, &camera};
