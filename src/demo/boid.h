@@ -1,15 +1,17 @@
 #ifndef OPENGL_DEMO_BOID_H
 #define OPENGL_DEMO_BOID_H
 
+#include <vector>
 #include "math/transform.h"
 
 struct Boid {
     Transform transform;
     Vector3 velocity;
 
-    void update(float delta_seconds) {
-        transform.move(velocity.x * delta_seconds, velocity.y * delta_seconds, velocity.z * delta_seconds);
-    }
+    void updatePosition(float delta_seconds);
+
+    bool operator==(Boid& other) const;
+    bool operator!=(Boid& other) const;
 };
 
 #endif //OPENGL_DEMO_BOID_H

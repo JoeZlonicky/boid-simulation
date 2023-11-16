@@ -17,9 +17,15 @@ public:
     void update(float delta_seconds) override;
 
 private:
-    void drawBoids();
-    void drawBoid(Boid& t);
+    Vector3 flyTowardsCenter(Boid& b);
+    Vector3 keepDistanceFromOthers(Boid& b);
+    Vector3 matchVelocity(Boid& b);
+    Vector3 keepInBounds(Boid& b);
+
     void generateBoids();
+
+    void drawBoids();
+    void drawBoid(Boid& boid);
 
     std::vector<Boid> boids_ {};
 
