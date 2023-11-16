@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+Camera::Camera() : pos_(0.f, 0.f, 0.f), target_(0.f, 0.f, -0.1f), aspect_ratio_(16.f / 9.f) {}
+
 Camera::Camera(Vector3 pos, Vector3 target, float aspect_ratio) : pos_(pos), target_(target),
                                                                   aspect_ratio_(aspect_ratio) {
 }

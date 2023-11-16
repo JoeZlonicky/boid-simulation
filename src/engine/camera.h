@@ -6,7 +6,7 @@
 
 class Camera {
 public:
-    Camera() = default;
+    Camera();
     Camera(Vector3 pos, Vector3 target, float aspect_ratio);
 
     void setPos(Vector3 pos);
@@ -34,7 +34,7 @@ private:
     float fov_degrees_ = 45.f;
     float near_plane_ = 0.1f;
     float far_plane_ = 100.f;
-    float aspect_ratio_ = 16.f / 9.f;
+    float aspect_ratio_;
 };
 
 #endif

@@ -1,9 +1,14 @@
 include_directories(../external/glad/include)
 include_directories(.)
 
+set(DEMO_SOURCE_FILES
+        demo/demo.cpp
+        demo/boids_demo.cpp
+        demo/boid.cpp)
+
 set(ENGINE_SOURCE_FILES
         engine/camera.cpp
-        demo/demo.cpp
+        demo/boids_demo.cpp
         engine/model.cpp
         engine/shader.cpp
         engine/window.cpp
@@ -21,6 +26,7 @@ set(MATH_SOURCE_FILES
 add_executable(opengl-demo
         main.cpp
         ../external/glad/src/glad.c
+        ${DEMO_SOURCE_FILES}
         ${ENGINE_SOURCE_FILES}
         ${MATH_SOURCE_FILES}
 )

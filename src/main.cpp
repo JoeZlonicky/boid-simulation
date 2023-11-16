@@ -1,9 +1,10 @@
 #include <iostream>
 #include "glad/glad.h"  // Needs to be included before GLFW
 #include <GLFW/glfw3.h>
+#include <memory>
 
 #include "engine/camera.h"
-#include "demo/demo.h"
+#include "demo/boids_demo.h"
 #include "engine/shader.h"
 #include "engine/window.h"
 
@@ -11,23 +12,21 @@ constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;
 
 int main() {
-    Window window {"OpenGL Demo", WINDOW_WIDTH, WINDOW_HEIGHT};
-    
-    Shader shader {"shaders/default_vertex_shader.vert",
-                   "shaders/default_fragment_shader.frag"};
+    Window window {"OpenGL BoidsDemo", WINDOW_WIDTH, WINDOW_HEIGHT};
 
-    Camera camera {{0.f, 1.f, 20.f},
-                   {0.f, 0.f, 0.f},
-                   (float) WINDOW_WIDTH / (float) WINDOW_HEIGHT};
+    Camera camera {};
     window.setCamera(&camera);
 
-    Demo demo {&shader, &camera};
+    std::unique_ptr<Demo> demo = std::make_unique<BoidsDemo>(&camera);
 
+    float last_time_seconds = 0;
     while (window.shouldKeepOpen()) {
-        auto current_time = static_cast<float>(glfwGetTime());
+        auto current_time_seconds = static_cast<float>(glfwGetTime());
+        float delta_time_seconds = current_time_seconds - last_time_seconds;
+        last_time_seconds = current_time_seconds;
 
-        demo.update(current_time);
-        demo.render();
+        demo->update(delta_time_seconds);
+        demo->render();
 
         window.refresh();
         glfwPollEvents();

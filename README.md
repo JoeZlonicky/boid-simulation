@@ -1,11 +1,11 @@
-# OpenGL Demo
+# OpenGL Boid Simulation
 
-An OpenGL demo. Features include:
+An OpenGL boid simulation. Features include:
 
 * Vector3, Vector4, Matrix3, Matrix4, Quaternion, and Transform implementations for the scope of the project.
 * Window, Camera, Model, and Shader classes to encapsulate most of the raw OpenGL functions.
 * Google Test library for unit testing all of the math classes.
-* A demo showing off all of the transform math/logic.
+* A demo showing off all the transform math/logic.
 
 ![Demo GIF](https://github.com/JoeZlonicky/opengl-demo/blob/master/Demo.gif)
 

@@ -1,28 +1,18 @@
 #ifndef OPENGL_DEMO_DEMO_H
 #define OPENGL_DEMO_DEMO_H
 
-#include <vector>
-#include "engine/model.h"
 #include "engine/camera.h"
-#include "engine/shader.h"
-#include "math/transform.h"
 
 class Demo {
 public:
-    Demo(Shader* shader, Camera* camera);
+    explicit Demo(Camera* camera);
+    virtual ~Demo() = default;
 
-    void render();
-    void update(float time);
+    virtual void render() = 0;
+    virtual void update(float delta_seconds) = 0;
 
-private:
-    void drawBoid(Transform& t);
-    void generateBoids();
-
-    Shader* shader_;
+protected:
     Camera* camera_;
-
-    std::vector<Transform> boids_ {};
-    Model boid_model_ = createCubeModel();
 };
 
-#endif
+#endif //OPENGL_DEMO_DEMO_H

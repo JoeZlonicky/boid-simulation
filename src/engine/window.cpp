@@ -17,7 +17,7 @@ Window::Window(const std::string& title, const int width, const int height) {
 #endif
 
     glfw_window_ = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
-    if (glfw_window_ != nullptr) {
+    if (glfw_window_ == nullptr) {
         glfwTerminate();
         throw std::runtime_error("Failed to create GLFW window");
     }
