@@ -11,13 +11,7 @@ constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;
 
 int main() {
-    Window window {};
-    try {
-        window.init("OpenGL Demo", WINDOW_WIDTH, WINDOW_HEIGHT);
-    } catch (const char* e) {
-        std::cerr << e << std::endl;
-        return 1;
-    }
+    Window window {"OpenGL Demo", WINDOW_WIDTH, WINDOW_HEIGHT};
 
     Shader shader {};
     try {

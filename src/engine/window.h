@@ -8,13 +8,12 @@ class GLFWwindow;
 
 class Window {
 public:
-    Window() = default;
+    Window(const std::string& title, int width, int height);
     ~Window();
 
     Window(const Window&) = delete;
     Window& operator=(const Window&) = delete;
-
-    void init(const std::string& title, int width, int height);
+    
     void refresh() const;
     void resize(int width, int height);
 
