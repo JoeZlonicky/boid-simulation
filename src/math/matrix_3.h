@@ -1,23 +1,20 @@
-#ifndef OPENGL_DEMO_MATRIX_3_H
-#define OPENGL_DEMO_MATRIX_3_H
+#ifndef BOID_SIMULATION_MATRIX_3_H
+#define BOID_SIMULATION_MATRIX_3_H
 
 #include "vector_3.h"
 
 // Implementation takes inspiration from Foundation of Game Engine Development, Volume 1: Mathematics by Eric Lengyel
-struct Matrix3 {
+// Stored in column-major order: https://en.wikipedia.org/wiki/Row-_and_column-major_order
+class Matrix3 {
+public:
     Matrix3() = default;
-    explicit Matrix3(float s) : n{{s, 0.f, 0.f},
-                                  {0.f, s, 0.f},
-                                  {0.f, 0.f, s}} {
 
-    }
+    explicit Matrix3(float diagonal);
     Matrix3(float n00, float n01, float n02,
             float n10, float n11, float n12,
-            float n20, float n21, float n22) :
-            n{{n00, n10, n20},
-              {n01, n11, n21},
-              {n02, n12, n22}} { }
+            float n20, float n21, float n22);
 
+    // Parameters are in matrix notation and do not correspond to the internal indices
     void set(float n00, float n01, float n02,
              float n10, float n11, float n12,
              float n20, float n21, float n22);
@@ -37,6 +34,7 @@ private:
 
 Matrix3 operator*(Matrix3 a, const Matrix3& b);
 Matrix3 operator*(Matrix3 m, float s);
+
 Matrix3 operator-(Matrix3 m);
 
 Vector3 operator*(const Matrix3& m, const Vector3& v);

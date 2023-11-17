@@ -1,14 +1,14 @@
 #include "transform.h"
 
-const Vector3 &Transform::getPosition() const {
+const Vector3& Transform::getPosition() const {
     return position_;
 }
 
-const Vector3 &Transform::getScale() const {
+const Vector3& Transform::getScale() const {
     return scale_;
 }
 
-const Quaternion &Transform::getRotation() const {
+const Quaternion& Transform::getRotation() const {
     return rotation_;
 }
 
@@ -64,6 +64,10 @@ void Transform::setScale(float x, float y, float z) {
     setScaleX(x);
     setScaleY(y);
     setScaleZ(z);
+}
+
+void Transform::setScale(float s) {
+    setScale(s, s, s);
 }
 
 void Transform::setScaleX(float x) {

@@ -5,7 +5,7 @@
 #include "testing_utility.h"
 
 TEST(Vector4, DefaultConstruction) {
-    Vector4 v;
+    Vector4 v {};
     assertVectorValues(v, 0.f, 0.f, 0.f, 0.f);
 }
 
@@ -25,8 +25,14 @@ TEST(Vector4, CopyConstruction) {
     assertVectorValues(v2, 1.f, 2.f, 3.f, 4.f);
 }
 
+TEST(Vector4, Vector3Construction) {
+    Vector3 v1 {1.f, 2.f, 3.f};
+    Vector4 v2 {v1, 4.f};
+    assertVectorValues(v2, 1.f, 2.f, 3.f, 4.f);
+}
+
 TEST(Vector4, PropertyAssignment) {
-    Vector4 v;
+    Vector4 v {};
     v.x = 1.f;
     v.y = 2.f;
     v.z = 3.f;
@@ -35,7 +41,7 @@ TEST(Vector4, PropertyAssignment) {
 }
 
 TEST(Vector4, IndexAssignment) {
-    Vector4 v;
+    Vector4 v {};
     v[0] = 1.f;
     v[1] = 2.f;
     v[2] = 3.f;
@@ -85,4 +91,12 @@ TEST(Vector4, Normalize) {
     Vector4 v {1.f, 1.f, 1.f, 1.f};
     v.normalize();
     ASSERT_FLOAT_EQ(v.magnitude(), 1.f);
+}
+
+TEST(Vector4, DotProduct) {
+    Vector4 v1 {1.f, 2.f, 3.f, 4.f};
+    Vector4 v2 {5.f, 6.f, 7.f, 8.f};
+    float dot_product = v1.dot(v2);
+    float expected_dot_product = 1.f * 5.f + 2.f * 6.f + 3.f * 7.f + 4.f * 8.f;
+    ASSERT_FLOAT_EQ(dot_product, expected_dot_product);
 }

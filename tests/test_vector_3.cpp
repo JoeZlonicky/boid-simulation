@@ -4,9 +4,8 @@
 #include <cmath>
 #include "testing_utility.h"
 
-
 TEST(Vector3, DefaultConstruction) {
-    Vector3 v;
+    Vector3 v {};
     assertVectorValues(v, 0.f, 0.f, 0.f);
 }
 
@@ -27,7 +26,7 @@ TEST(Vector3, CopyConstruction) {
 }
 
 TEST(Vector3, PropertyAssignment) {
-    Vector3 v;
+    Vector3 v {};
     v.x = 1.f;
     v.y = 2.f;
     v.z = 3.f;
@@ -35,7 +34,7 @@ TEST(Vector3, PropertyAssignment) {
 }
 
 TEST(Vector3, IndexAssignment) {
-    Vector3 v;
+    Vector3 v {};
     v[0] = 1.f;
     v[1] = 2.f;
     v[2] = 3.f;
@@ -86,9 +85,63 @@ TEST(Vector3, Normalize) {
     ASSERT_FLOAT_EQ(v.magnitude(), 1.f);
 }
 
+TEST(Vector3, Normalized) {
+    Vector3 v1 {1.f, 1.f, 1.f};
+    Vector3 v2 = v1.normalized();
+    ASSERT_FLOAT_EQ(v2.magnitude(), 1.f);
+}
+
+TEST(Vector3, ClampPositive) {
+    Vector3 v {1.f, 2.f, 3.f};
+    v.clamp(3.f);
+    ASSERT_FLOAT_EQ(v.magnitude(), 3.f);
+    ASSERT_TRUE(v.x > 0.f && v.y > 0.f && v.z > 0.f);
+}
+
+TEST(Vector3, ClampNegative) {
+    Vector3 v {-1.f, -2.f, -3.f};
+    v.clamp(3.f);
+    ASSERT_FLOAT_EQ(v.magnitude(), 3.f);
+    ASSERT_TRUE(v.x < 0.f && v.y < 0.f && v.z < 0.f);
+}
+
+TEST(Vector3, ClampNotNeeded) {
+    Vector3 v {};
+    v.clamp(3.f);
+    assertVectorValues(v, 0.f, 0.f, 0.f);
+}
+
+TEST(Vector3, ClampedPositive) {
+    Vector3 v1 {1.f, 2.f, 3.f};
+    Vector3 v2 = v1.clamped(3.f);
+    ASSERT_FLOAT_EQ(v2.magnitude(), 3.f);
+    ASSERT_TRUE(v2.x > 0.f && v2.y > 0.f && v2.z > 0.f);
+}
+
+TEST(Vector3, ClampedNegative) {
+    Vector3 v1 {-1.f, -2.f, -3.f};
+    Vector3 v2 = v1.clamped(3.f);
+    ASSERT_FLOAT_EQ(v2.magnitude(), 3.f);
+    ASSERT_TRUE(v2.x < 0.f && v2.y < 0.f && v2.z < 0.f);
+}
+
+TEST(Vector3, ClampedNotNeeded) {
+    Vector3 v1 {};
+    Vector3 v2 = v1.clamped(3.f);
+    assertVectorValues(v2, 0.f, 0.f, 0.f);
+}
+
 TEST(Vector3, CrossProduct) {
     Vector3 v1 {1.f, 0.f, 0.f};
     Vector3 v2 {0.f, 1.f, 0.f};
     Vector3 v3 = v1.cross(v2);
     assertVectorValues(v3, 0.f, 0.f, 1.f);
+}
+
+TEST(Vector3, DotProduct) {
+    Vector3 v1 {1.f, 2.f, 3.f};
+    Vector3 v2 {4.f, 5.f, 6.f};
+    float dot_product = v1.dot(v2);
+    float expected_dot_product = 1.f * 4.f + 2.f * 5.f + 3.f * 6.f;
+    ASSERT_FLOAT_EQ(dot_product, expected_dot_product);
 }

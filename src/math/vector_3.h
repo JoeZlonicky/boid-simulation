@@ -1,5 +1,5 @@
-#ifndef OPENGL_DEMO_VECTOR_3_H_
-#define OPENGL_DEMO_VECTOR_3_H_
+#ifndef BOID_SIMULATION_VECTOR_3_H_
+#define BOID_SIMULATION_VECTOR_3_H_
 
 // Implementation takes inspiration from
 // 1) Foundation of Game Engine Development, Volume 1: Mathematics by Eric Lengyel
@@ -14,27 +14,40 @@ struct Vector3 {
         float components[3] = {0.f};
     };
 
-    Vector3() : x(0.f), y(0.f), z(0.f) {}
-    explicit Vector3(float value) : x(value), y(value), z(value) {}
-    Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
+    Vector3();
+    explicit Vector3(float value);
+    Vector3(float x, float y, float z);
 
     float& operator[](int i);
     const float& operator[](int i) const;
 
     Vector3& operator*=(float s);
+
     Vector3& operator/=(float s);
+
     Vector3& operator+=(const Vector3& v);
+
     Vector3& operator-=(const Vector3& v);
 
     void normalize();
     [[nodiscard]] Vector3 normalized() const;
+
+    void clamp(float clamped_magnitude);
+    [[nodiscard]] Vector3 clamped(float clamped_magnitude) const;
+
     [[nodiscard]] float magnitude() const;
+
     [[nodiscard]] Vector3 cross(const Vector3& v) const;
+
+    [[nodiscard]] float dot(const Vector3& v) const;
 };
 
 Vector3 operator*(Vector3 v, float s);
+
 Vector3 operator/(Vector3 v, float s);
+
 Vector3 operator+(Vector3 a, const Vector3& b);
+
 Vector3 operator-(Vector3 a, const Vector3& b);
 Vector3 operator-(Vector3 v);
 

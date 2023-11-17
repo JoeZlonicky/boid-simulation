@@ -1,12 +1,12 @@
-#ifndef OPENGL_DEMO_CAMERA_H_
-#define OPENGL_DEMO_CAMERA_H_
+#ifndef BOID_SIMULATION_CAMERA_H_
+#define BOID_SIMULATION_CAMERA_H_
 
 #include "math/vector_3.h"
 #include "math/matrix_4.h"
 
 class Camera {
 public:
-    Camera() = default;
+    Camera();
     Camera(Vector3 pos, Vector3 target, float aspect_ratio);
 
     void setPos(Vector3 pos);
@@ -32,8 +32,8 @@ private:
     Vector3 pos_;
     Vector3 target_;
     float fov_degrees_ = 45.f;
-    float near_plane_ = 0.1f;
-    float far_plane_ = 100.f;
+    float near_plane_ = 1.f;
+    float far_plane_ = 10000.f;
     float aspect_ratio_;
 };
 

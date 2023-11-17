@@ -1,45 +1,30 @@
-#include <iostream>
 #include "glad/glad.h"  // Needs to be included before GLFW
 #include <GLFW/glfw3.h>
+#include <memory>
 
 #include "engine/camera.h"
-#include "demo/demo.h"
-#include "engine/shader.h"
+#include "sim/boid_simulation.h"
 #include "engine/window.h"
 
 constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;
 
 int main() {
-    Window window {};
-    try {
-        window.init("OpenGL Demo", WINDOW_WIDTH, WINDOW_HEIGHT);
-    } catch (const char* e) {
-        std::cerr << e << std::endl;
-        return 1;
-    }
+    Window window {"Boid Simulation", WINDOW_WIDTH, WINDOW_HEIGHT};
 
-    Shader shader {};
-    try {
-        shader.create("shaders/default_vertex_shader.vert",
-                      "shaders/default_fragment_shader.frag");
-    } catch (const std::runtime_error& e) {
-        std::cerr << e.what() << std::endl;
-        return 1;
-    }
-
-    Camera camera {{0.f, 1.f, 10.f},
-                   {0.f, 0.f, 0.f},
-                   (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT};
+    Camera camera {};
     window.setCamera(&camera);
 
-    Demo demo {&shader, &camera};
+    std::unique_ptr<Simulation> demo = std::make_unique<BoidSimulation>(&camera);
 
+    float last_time_seconds = 0;
     while (window.shouldKeepOpen()) {
-        auto current_time = static_cast<float>(glfwGetTime());
+        auto current_time_seconds = static_cast<float>(glfwGetTime());
+        float delta_time_seconds = current_time_seconds - last_time_seconds;
+        last_time_seconds = current_time_seconds;
 
-        demo.update(current_time);
-        demo.render();
+        demo->update(delta_time_seconds);
+        demo->render();
 
         window.refresh();
         glfwPollEvents();

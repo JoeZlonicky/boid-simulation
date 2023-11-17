@@ -2,7 +2,10 @@
 
 #include <cmath>
 
-Camera::Camera(Vector3 pos, Vector3 target, float aspect_ratio) : pos_(pos), target_(target), aspect_ratio_(aspect_ratio) {
+Camera::Camera() : pos_(0.f, 0.f, 0.f), target_(0.f, 0.f, -0.1f), aspect_ratio_(16.f / 9.f) {}
+
+Camera::Camera(Vector3 pos, Vector3 target, float aspect_ratio) : pos_(pos), target_(target),
+                                                                  aspect_ratio_(aspect_ratio) {
 }
 
 void Camera::setPos(Vector3 pos) {
@@ -68,18 +71,18 @@ void Camera::calculateProjectionViewMatrix() {
     Vector3 right = world_up.cross(to_camera).normalized();
     Vector3 up = to_camera.cross(right);
 
-    Matrix4 view = Matrix4{
-        right.x, right.y, right.z, 0.f,
-        up.x, up.y, up.z, 0.f,
-        to_camera.x, to_camera.y, to_camera.z, 0.f,
-        0.f, 0.f, 0.f, 1.f}
-        * Matrix4{
+    Matrix4 view = Matrix4 {
+            right.x, right.y, right.z, 0.f,
+            up.x, up.y, up.z, 0.f,
+            to_camera.x, to_camera.y, to_camera.z, 0.f,
+            0.f, 0.f, 0.f, 1.f}
+                   * Matrix4 {
             1.f, 0.f, 0.f, -pos_.x,
             0.f, 1.f, 0.f, -pos_.y,
             0.f, 0.f, 1.f, -pos_.z,
             0.f, 0.f, 0.f, 1.f};
 
-    Matrix4 projection = Matrix4{0.f};
+    Matrix4 projection = Matrix4 {0.f};
     float fov_radians = (fov_degrees_ / 180.f) * static_cast<float>(M_PI);
     float tan_half_fov = std::tan(fov_radians / 2.f);
     projection(0, 0) = 1.f / (aspect_ratio_ * tan_half_fov);

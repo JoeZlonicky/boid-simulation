@@ -3,7 +3,6 @@
 #include <gtest/gtest.h>
 #include "testing_utility.h"
 
-
 TEST(Transform, DefaultConstruction) {
     Transform t {};
     Matrix4 m = t.getMatrix();

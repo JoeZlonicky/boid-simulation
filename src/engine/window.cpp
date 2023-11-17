@@ -4,12 +4,7 @@
 #include "GLFW/glfw3.h"
 #include <stdexcept>
 
-Window::~Window() {
-    glfwTerminate();
-}
-
-
-void Window::init(const std::string & title, const int width, const int height) {
+Window::Window(const std::string& title, const int width, const int height) {
     width_ = width;
     height_ = height;
 
@@ -24,13 +19,13 @@ void Window::init(const std::string & title, const int width, const int height) 
     glfw_window_ = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
     if (glfw_window_ == nullptr) {
         glfwTerminate();
-        throw std::runtime_error("Failed to load GLFW window");
+        throw std::runtime_error("Failed to create GLFW window");
     }
     glfwMakeContextCurrent(glfw_window_);
 
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
         glfwTerminate();
-        throw std::runtime_error("Failed to load GLFW window");
+        throw std::runtime_error("Failed to load OpenGL");
     }
 
     glViewport(0, 0, width, height);
@@ -41,6 +36,10 @@ void Window::init(const std::string & title, const int width, const int height) 
         window->resize(width, height);
     };
     glfwSetFramebufferSizeCallback(glfw_window_, onManualResize);
+}
+
+Window::~Window() {
+    glfwTerminate();
 }
 
 void Window::refresh() const {
@@ -55,10 +54,12 @@ void Window::resize(int width, int height) {
     width_ = width;
     height_ = height;
     glViewport(0, 0, width, height);
-    camera_->setAspectRatio(static_cast<float>(width_) / static_cast<float>(height_));
+    if (camera_ != nullptr) {
+        camera_->setAspectRatio(static_cast<float>(width_) / static_cast<float>(height_));
+    }
 }
 
-void Window::setCamera(Camera *camera) {
+void Window::setCamera(Camera* camera) {
     camera_ = camera;
     camera_->setAspectRatio(static_cast<float>(width_) / static_cast<float>(height_));
 }

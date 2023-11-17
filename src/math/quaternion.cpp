@@ -1,6 +1,5 @@
 #include "Quaternion.h"
 
-
 Quaternion::Quaternion(Vector3 axis, float angle_degrees) {
     axis.normalize();
 
@@ -67,11 +66,11 @@ Vector3& Quaternion::getVectorPart() {
     return reinterpret_cast<Vector3&>(x);
 }
 
-const Vector3 &Quaternion::getVectorPart() const {
+const Vector3& Quaternion::getVectorPart() const {
     return reinterpret_cast<const Vector3&>(x);
 }
 
-Quaternion& Quaternion::operator*=(const Quaternion &q) {
+Quaternion& Quaternion::operator*=(const Quaternion& q) {
     set(
             w * q.x + x * q.w + y * q.z - z * q.y,
             w * q.y - x * q.z + y * q.w + z * q.x,

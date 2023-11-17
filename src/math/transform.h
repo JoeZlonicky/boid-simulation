@@ -1,5 +1,5 @@
-#ifndef OPENGL_DEMO_TRANSFORM_H_
-#define OPENGL_DEMO_TRANSFORM_H_
+#ifndef BOID_SIMULATION_TRANSFORM_H_
+#define BOID_SIMULATION_TRANSFORM_H_
 
 #include "math/vector_3.h"
 #include "math/quaternion.h"
@@ -25,6 +25,7 @@ public:
     void moveZ(float z);
 
     void setScale(float x, float y, float z);
+    void setScale(float s);
     void setScaleX(float x);
     void setScaleY(float y);
     void setScaleZ(float z);
