@@ -2,13 +2,13 @@ include_directories(../external/glad/include)
 include_directories(.)
 
 set(SIMULATION_SOURCE_FILES
-        demo/simulation.cpp
-        demo/boid_simulation.cpp
-        demo/boid.cpp)
+        sim/simulation.cpp
+        sim/boid_simulation.cpp
+        sim/boid.cpp)
 
 set(ENGINE_SOURCE_FILES
         engine/camera.cpp
-        demo/boid_simulation.cpp
+        sim/boid_simulation.cpp
         engine/model.cpp
         engine/shader.cpp
         engine/window.cpp

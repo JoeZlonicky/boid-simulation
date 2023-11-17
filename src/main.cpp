@@ -1,11 +1,9 @@
-#include <iostream>
 #include "glad/glad.h"  // Needs to be included before GLFW
 #include <GLFW/glfw3.h>
 #include <memory>
 
 #include "engine/camera.h"
-#include "demo/boid_simulation.h"
-#include "engine/shader.h"
+#include "sim/boid_simulation.h"
 #include "engine/window.h"
 
 constexpr int WINDOW_WIDTH = 1280;
