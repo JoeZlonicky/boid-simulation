@@ -1,18 +1,18 @@
-#ifndef OPENGL_DEMO_BOIDS_DEMO_H
-#define OPENGL_DEMO_BOIDS_DEMO_H
+#ifndef BOID_SIMULATION_BOID_SIMULATION_H
+#define BOID_SIMULATION_BOID_SIMULATION_H
 
 #include <vector>
 #include "engine/model.h"
 #include "engine/camera.h"
 #include "engine/shader.h"
 #include "math/transform.h"
-#include "demo.h"
+#include "simulation.h"
 #include "boid.h"
 
 // Algorithms used are derived from https://vergenet.net/~conrad/boids/pseudocode.html
-class BoidsDemo : public Demo {
+class BoidSimulation : public Simulation {
 public:
-    explicit BoidsDemo(Camera* camera);
+    explicit BoidSimulation(Camera* camera);
 
     void render() override;
     void update(float delta_seconds) override;

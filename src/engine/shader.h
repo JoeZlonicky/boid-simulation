@@ -1,5 +1,5 @@
-#ifndef OPENGL_DEMO_SHADER_H
-#define OPENGL_DEMO_SHADER_H
+#ifndef BOID_SIMULATION_SHADER_H
+#define BOID_SIMULATION_SHADER_H
 
 #include <string>
 #include "glad/glad.h"

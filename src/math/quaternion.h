@@ -1,5 +1,5 @@
-#ifndef OPENGL_DEMO_QUATERNION_H_
-#define OPENGL_DEMO_QUATERNION_H_
+#ifndef BOID_SIMULATION_QUATERNION_H_
+#define BOID_SIMULATION_QUATERNION_H_
 
 #include <cmath>
 #include "vector_3.h"

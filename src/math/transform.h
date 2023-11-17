@@ -1,5 +1,5 @@
-#ifndef OPENGL_DEMO_TRANSFORM_H_
-#define OPENGL_DEMO_TRANSFORM_H_
+#ifndef BOID_SIMULATION_TRANSFORM_H_
+#define BOID_SIMULATION_TRANSFORM_H_
 
 #include "math/vector_3.h"
 #include "math/quaternion.h"

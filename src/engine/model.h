@@ -1,5 +1,5 @@
-#ifndef OPENGL_DEMO_CUBE_H_
-#define OPENGL_DEMO_CUBE_H_
+#ifndef BOID_SIMULATION_CUBE_H_
+#define BOID_SIMULATION_CUBE_H_
 
 #include <string>
 #include <vector>

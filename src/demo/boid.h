@@ -1,5 +1,5 @@
-#ifndef OPENGL_DEMO_BOID_H
-#define OPENGL_DEMO_BOID_H
+#ifndef BOID_SIMULATION_BOID_H
+#define BOID_SIMULATION_BOID_H
 
 #include <vector>
 #include "math/transform.h"
@@ -14,4 +14,4 @@ struct Boid {
     bool operator!=(Boid& other) const;
 };
 
-#endif //OPENGL_DEMO_BOID_H
+#endif //BOID_SIMULATION_BOID_H

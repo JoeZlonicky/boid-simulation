@@ -1,5 +1,5 @@
-#ifndef OPENGL_DEMO_WINDOW_H
-#define OPENGL_DEMO_WINDOW_H
+#ifndef BOID_SIMULATION_WINDOW_H
+#define BOID_SIMULATION_WINDOW_H
 
 #include <string>
 #include "camera.h"
@@ -13,7 +13,7 @@ public:
 
     Window(const Window&) = delete;
     Window& operator=(const Window&) = delete;
-    
+
     void refresh() const;
     void resize(int width, int height);
 

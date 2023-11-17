@@ -1,14 +1,14 @@
 include_directories(../external/glad/include)
 include_directories(.)
 
-set(DEMO_SOURCE_FILES
-        demo/demo.cpp
-        demo/boids_demo.cpp
+set(SIMULATION_SOURCE_FILES
+        demo/simulation.cpp
+        demo/boid_simulation.cpp
         demo/boid.cpp)
 
 set(ENGINE_SOURCE_FILES
         engine/camera.cpp
-        demo/boids_demo.cpp
+        demo/boid_simulation.cpp
         engine/model.cpp
         engine/shader.cpp
         engine/window.cpp
@@ -23,12 +23,12 @@ set(MATH_SOURCE_FILES
         math/vector_4.cpp
 )
 
-add_executable(opengl-demo
+add_executable(boid-sim
         main.cpp
         ../external/glad/src/glad.c
-        ${DEMO_SOURCE_FILES}
+        ${SIMULATION_SOURCE_FILES}
         ${ENGINE_SOURCE_FILES}
         ${MATH_SOURCE_FILES}
 )
 
-target_link_libraries(opengl-demo glfw ${OPENGL_gl_LIBRARY})
+target_link_libraries(boid-sim glfw ${OPENGL_gl_LIBRARY})

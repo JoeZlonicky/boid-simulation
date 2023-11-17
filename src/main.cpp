@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "engine/camera.h"
-#include "demo/boids_demo.h"
+#include "demo/boid_simulation.h"
 #include "engine/shader.h"
 #include "engine/window.h"
 
@@ -12,12 +12,12 @@ constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;
 
 int main() {
-    Window window {"OpenGL BoidsDemo", WINDOW_WIDTH, WINDOW_HEIGHT};
+    Window window {"Boid Simulation", WINDOW_WIDTH, WINDOW_HEIGHT};
 
     Camera camera {};
     window.setCamera(&camera);
 
-    std::unique_ptr<Demo> demo = std::make_unique<BoidsDemo>(&camera);
+    std::unique_ptr<Simulation> demo = std::make_unique<BoidSimulation>(&camera);
 
     float last_time_seconds = 0;
     while (window.shouldKeepOpen()) {

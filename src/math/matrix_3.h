@@ -1,5 +1,5 @@
-#ifndef OPENGL_DEMO_MATRIX_3_H
-#define OPENGL_DEMO_MATRIX_3_H
+#ifndef BOID_SIMULATION_MATRIX_3_H
+#define BOID_SIMULATION_MATRIX_3_H
 
 #include "vector_3.h"
 

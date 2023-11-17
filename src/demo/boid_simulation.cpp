@@ -1,11 +1,11 @@
-#include "boids_demo.h"
+#include "boid_simulation.h"
 
 #include <random>
 #include <iostream>
 
-BoidsDemo::BoidsDemo(Camera* camera) : Demo(camera),
-                                       boid_shader_("shaders/default_vertex_shader.vert",
-                                                    "shaders/default_fragment_shader.frag") {
+BoidSimulation::BoidSimulation(Camera* camera) : Simulation(camera),
+                                                 boid_shader_("shaders/default_vertex_shader.vert",
+                                                              "shaders/default_fragment_shader.frag") {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_POLYGON_OFFSET_FILL);
 
@@ -14,14 +14,14 @@ BoidsDemo::BoidsDemo(Camera* camera) : Demo(camera),
     generateBoids();
 }
 
-void BoidsDemo::render() {
+void BoidSimulation::render() {
     glClearColor(0.f, 0.f, 0.f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     drawBoids();
 }
 
-void BoidsDemo::update(float delta_seconds) {
+void BoidSimulation::update(float delta_seconds) {
     for (Boid& b: boids_) {
         Vector3 v = flyTowardsCenter(b);
         v += keepDistanceFromOthers(b);
@@ -35,7 +35,7 @@ void BoidsDemo::update(float delta_seconds) {
     }
 }
 
-Vector3 BoidsDemo::flyTowardsCenter(Boid& b) {
+Vector3 BoidSimulation::flyTowardsCenter(Boid& b) {
     Vector3 average {};
     for (Boid& other: boids_) {
         if (other == b) continue;
@@ -46,7 +46,7 @@ Vector3 BoidsDemo::flyTowardsCenter(Boid& b) {
     return (average - b.transform.getPosition()) / 100.f;
 }
 
-Vector3 BoidsDemo::keepDistanceFromOthers(Boid& b) {
+Vector3 BoidSimulation::keepDistanceFromOthers(Boid& b) {
     Vector3 sum {};
     for (Boid& other: boids_) {
         if (other == b) continue;
@@ -60,7 +60,7 @@ Vector3 BoidsDemo::keepDistanceFromOthers(Boid& b) {
     return sum / 10.f;
 }
 
-Vector3 BoidsDemo::matchVelocity(Boid& b) {
+Vector3 BoidSimulation::matchVelocity(Boid& b) {
     Vector3 average {};
     for (Boid& other: boids_) {
         if (other == b) continue;
@@ -71,7 +71,7 @@ Vector3 BoidsDemo::matchVelocity(Boid& b) {
     return (average - b.velocity) / 8.f;
 }
 
-Vector3 BoidsDemo::keepInBounds(Boid& b) {
+Vector3 BoidSimulation::keepInBounds(Boid& b) {
     Vector3 velocity {};
     Vector3 pos = b.transform.getPosition();
 
@@ -96,11 +96,11 @@ Vector3 BoidsDemo::keepInBounds(Boid& b) {
     return velocity;
 }
 
-void BoidsDemo::clampVelocity(Boid& b) {
+void BoidSimulation::clampVelocity(Boid& b) {
     b.velocity.clamp(100.f);
 }
 
-void BoidsDemo::generateBoids() {
+void BoidSimulation::generateBoids() {
     std::random_device seed {};
     std::mt19937 generator {seed()};
     std::uniform_real_distribution<> pos_range {-400, 400};
@@ -116,7 +116,7 @@ void BoidsDemo::generateBoids() {
     }
 }
 
-void BoidsDemo::drawBoids() {
+void BoidSimulation::drawBoids() {
     boid_shader_.activate();
     boid_shader_.setUniform("projection_view", camera_->getProjectionViewMatrix());
 
@@ -128,7 +128,7 @@ void BoidsDemo::drawBoids() {
     glBindVertexArray(0);
 }
 
-void BoidsDemo::drawBoid(Boid& boid) {
+void BoidSimulation::drawBoid(Boid& boid) {
     boid_shader_.setUniform("model", boid.transform.getMatrix());
 
     boid_shader_.setUniform("color", 0.4, 0.0, 0.0, 1.0);

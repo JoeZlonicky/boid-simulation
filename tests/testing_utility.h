@@ -1,5 +1,5 @@
-#ifndef OPENGL_DEMO_TESTING_UTILITY_H_
-#define OPENGL_DEMO_TESTING_UTILITY_H_
+#ifndef BOID_SIMULATION_TESTING_UTILITY_H_
+#define BOID_SIMULATION_TESTING_UTILITY_H_
 
 #include <gtest/gtest.h>
 #include "math/matrix_3.h"
