@@ -9,7 +9,8 @@ BoidsDemo::BoidsDemo(Camera* camera) : Demo(camera),
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_POLYGON_OFFSET_FILL);
 
-    camera->setPosZ(1500.f);
+    camera->setPosZ(2000.f);
+    camera->setFOV(60.f);
     generateBoids();
 }
 
@@ -28,9 +29,10 @@ void BoidsDemo::update(float delta_seconds) {
         v += keepInBounds(b);
 
         b.velocity += v * 5 * delta_seconds;
+        clampVelocity(b);
+
         b.updatePosition(10.f * delta_seconds);
     }
-    std::cout << boids_[0].velocity.magnitude() << std::endl;
 }
 
 Vector3 BoidsDemo::flyTowardsCenter(Boid& b) {
@@ -58,28 +60,6 @@ Vector3 BoidsDemo::keepDistanceFromOthers(Boid& b) {
     return sum / 10.f;
 }
 
-Vector3 BoidsDemo::keepInBounds(Boid& b) {
-    Vector3 velocity {};
-    Vector3 pos = b.transform.getPosition();
-
-    if (pos.x > 200.f) {
-        velocity.x = -10.f;
-    } else if (pos.x < -400.f) {
-        velocity.x = 10.f;
-    }
-    if (pos.y > 200.f) {
-        velocity.y = -10.f;
-    } else if (pos.y < -200.f) {
-        velocity.y = 10.f;
-    }
-    if (pos.z > 0.f) {
-        velocity.z = -10.f;
-    } else if (pos.z < -200.f) {
-        velocity.z = 10.f;
-    }
-    return velocity;
-}
-
 Vector3 BoidsDemo::matchVelocity(Boid& b) {
     Vector3 average {};
     for (Boid& other: boids_) {
@@ -89,6 +69,35 @@ Vector3 BoidsDemo::matchVelocity(Boid& b) {
     average /= static_cast<float>(boids_.size() - 1);
 
     return (average - b.velocity) / 8.f;
+}
+
+Vector3 BoidsDemo::keepInBounds(Boid& b) {
+    Vector3 velocity {};
+    Vector3 pos = b.transform.getPosition();
+
+    float half_box_size = 200.f;
+    float bounds_strength = 10.f;
+
+    if (pos.x > half_box_size) {
+        velocity.x = -bounds_strength;
+    } else if (pos.x < -400.f) {
+        velocity.x = bounds_strength;
+    }
+    if (pos.y > half_box_size) {
+        velocity.y = -bounds_strength;
+    } else if (pos.y < -200.f) {
+        velocity.y = bounds_strength;
+    }
+    if (pos.z > half_box_size) {
+        velocity.z = -bounds_strength;
+    } else if (pos.z < half_box_size) {
+        velocity.z = bounds_strength;
+    }
+    return velocity;
+}
+
+void BoidsDemo::clampVelocity(Boid& b) {
+    b.velocity.clamp(100.f);
 }
 
 void BoidsDemo::generateBoids() {
@@ -103,7 +112,7 @@ void BoidsDemo::generateBoids() {
         new_boid.transform.setPosY(static_cast<float>(pos_range(generator)));
         new_boid.transform.setPosZ(static_cast<float>(pos_range(generator)));
 
-        new_boid.transform.setScale(10.f);
+        new_boid.transform.setScale(15.f);
     }
 }
 

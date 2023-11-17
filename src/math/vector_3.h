@@ -32,6 +32,9 @@ struct Vector3 {
     void normalize();
     [[nodiscard]] Vector3 normalized() const;
 
+    void clamp(float clamped_magnitude);
+    [[nodiscard]] Vector3 clamped(float clamped_magnitude) const;
+
     [[nodiscard]] float magnitude() const;
 
     [[nodiscard]] Vector3 cross(const Vector3& v) const;

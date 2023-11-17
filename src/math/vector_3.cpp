@@ -51,6 +51,21 @@ Vector3 Vector3::normalized() const {
     return *this / magnitude();
 }
 
+void Vector3::clamp(float clamped_magnitude) {
+    float current_magnitude = this->magnitude();
+    if (current_magnitude < clamped_magnitude) return;
+
+    normalize();
+    *this *= clamped_magnitude;
+}
+
+Vector3 Vector3::clamped(float clamped_magnitude) const {
+    float current_magnitude = this->magnitude();
+    if (current_magnitude < clamped_magnitude) return *this;
+
+    return this->normalized() * clamped_magnitude;
+}
+
 float Vector3::magnitude() const {
     return (std::sqrt(x * x + y * y + z * z));
 }

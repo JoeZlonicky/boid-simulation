@@ -85,6 +85,52 @@ TEST(Vector3, Normalize) {
     ASSERT_FLOAT_EQ(v.magnitude(), 1.f);
 }
 
+TEST(Vector3, Normalized) {
+    Vector3 v1 {1.f, 1.f, 1.f};
+    Vector3 v2 = v1.normalized();
+    ASSERT_FLOAT_EQ(v2.magnitude(), 1.f);
+}
+
+TEST(Vector3, ClampPositive) {
+    Vector3 v {1.f, 2.f, 3.f};
+    v.clamp(3.f);
+    ASSERT_FLOAT_EQ(v.magnitude(), 3.f);
+    ASSERT_TRUE(v.x > 0.f && v.y > 0.f && v.z > 0.f);
+}
+
+TEST(Vector3, ClampNegative) {
+    Vector3 v {-1.f, -2.f, -3.f};
+    v.clamp(3.f);
+    ASSERT_FLOAT_EQ(v.magnitude(), 3.f);
+    ASSERT_TRUE(v.x < 0.f && v.y < 0.f && v.z < 0.f);
+}
+
+TEST(Vector3, ClampNotNeeded) {
+    Vector3 v {};
+    v.clamp(3.f);
+    assertVectorValues(v, 0.f, 0.f, 0.f);
+}
+
+TEST(Vector3, ClampedPositive) {
+    Vector3 v1 {1.f, 2.f, 3.f};
+    Vector3 v2 = v1.clamped(3.f);
+    ASSERT_FLOAT_EQ(v2.magnitude(), 3.f);
+    ASSERT_TRUE(v2.x > 0.f && v2.y > 0.f && v2.z > 0.f);
+}
+
+TEST(Vector3, ClampedNegative) {
+    Vector3 v1 {-1.f, -2.f, -3.f};
+    Vector3 v2 = v1.clamped(3.f);
+    ASSERT_FLOAT_EQ(v2.magnitude(), 3.f);
+    ASSERT_TRUE(v2.x < 0.f && v2.y < 0.f && v2.z < 0.f);
+}
+
+TEST(Vector3, ClampedNotNeeded) {
+    Vector3 v1 {};
+    Vector3 v2 = v1.clamped(3.f);
+    assertVectorValues(v2, 0.f, 0.f, 0.f);
+}
+
 TEST(Vector3, CrossProduct) {
     Vector3 v1 {1.f, 0.f, 0.f};
     Vector3 v2 {0.f, 1.f, 0.f};

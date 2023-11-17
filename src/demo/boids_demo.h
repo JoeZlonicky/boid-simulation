@@ -9,6 +9,7 @@
 #include "demo.h"
 #include "boid.h"
 
+// Algorithms used are derived from https://vergenet.net/~conrad/boids/pseudocode.html
 class BoidsDemo : public Demo {
 public:
     explicit BoidsDemo(Camera* camera);
@@ -21,6 +22,7 @@ private:
     Vector3 keepDistanceFromOthers(Boid& b);
     Vector3 matchVelocity(Boid& b);
     Vector3 keepInBounds(Boid& b);
+    void clampVelocity(Boid& b);
 
     void generateBoids();
 

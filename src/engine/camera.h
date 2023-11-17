@@ -33,7 +33,7 @@ private:
     Vector3 target_;
     float fov_degrees_ = 45.f;
     float near_plane_ = 1.f;
-    float far_plane_ = 100000.f;
+    float far_plane_ = 10000.f;
     float aspect_ratio_;
 };
 
