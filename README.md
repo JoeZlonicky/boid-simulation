@@ -7,7 +7,7 @@ An OpenGL boid simulation. Features include:
 * Window, Camera, Model, and Shader classes to encapsulate most of the raw OpenGL functions.
 * Google Test unit testing all of the math classes.
 
-![Simulation GIF](https://github.com/JoeZlonicky/opengl-demo/blob/master/Simulation.gif)
+![Simulation GIF](https://github.com/JoeZlonicky/boid-simulation/blob/master/Demo.gif)
 
 ## Running from CLI
 
