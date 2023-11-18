@@ -6,8 +6,8 @@
 #include "sim/boid_simulation.h"
 #include "engine/window.h"
 
-constexpr int WINDOW_WIDTH = 1280;
-constexpr int WINDOW_HEIGHT = 720;
+constexpr int WINDOW_WIDTH = 800;
+constexpr int WINDOW_HEIGHT = 800;
 
 int main() {
     Window window {"Boid Simulation", WINDOW_WIDTH, WINDOW_HEIGHT};
