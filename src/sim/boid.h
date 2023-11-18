@@ -9,6 +9,7 @@ struct Boid {
     Vector3 velocity;
 
     void updatePosition(float delta_seconds);
+    void updateRotation();
 
     bool operator==(Boid& other) const;
     bool operator!=(Boid& other) const;

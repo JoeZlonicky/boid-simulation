@@ -12,6 +12,10 @@ Quaternion::Quaternion(Vector3 axis, float angle_degrees) {
     w = std::cos(half_angle);
 }
 
+Quaternion::Quaternion() : Quaternion({1.0f, 0.f, 0.f}, 0.f) {}
+
+Quaternion::Quaternion(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
+
 float& Quaternion::operator[](int i) {
     return components[i];
 }

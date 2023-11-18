@@ -1,7 +1,27 @@
 #include "boid_simulation.h"
-
 #include <random>
 #include <iostream>
+
+constexpr float CAMERA_DISTANCE = 1500.f;
+constexpr float CAMERA_FOV = 75.f;
+constexpr float BOID_SIZE = 15.f;
+
+constexpr float ACCELERATION_MODIFIER = 10.f;
+constexpr float VELOCITY_MODIFIER = 10.f;
+
+constexpr int N_BOIDS = 200;
+
+constexpr float FLY_TOWARDS_CENTER_STRENGTH = 0.01f;
+constexpr float KEEP_DISTANCE_FROM_OTHERS_STRENGTH = 0.2f;
+constexpr float KEEP_DISTANCE_CONSIDERATION_DISTANCE = 150.f;
+constexpr float MATCH_VELOCITY_STRENGTH = 0.12f;
+constexpr float KEEP_IN_BOUNDS_STRENGTH = 10.f;
+constexpr float MAX_VELOCITY = 100.f;
+
+constexpr float SPAWN_AREA_SIZE = 800.f;
+constexpr float HALF_SPAWN_AREA_SIZE = SPAWN_AREA_SIZE / 2.f;
+constexpr float BOUNDS_SIZE = 400.f;
+constexpr float HALF_BOUNDS_SIZE = BOUNDS_SIZE / 2.f;
 
 BoidSimulation::BoidSimulation(Camera* camera) : Simulation(camera),
                                                  boid_shader_("shaders/default_vertex_shader.vert",
@@ -9,8 +29,8 @@ BoidSimulation::BoidSimulation(Camera* camera) : Simulation(camera),
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_POLYGON_OFFSET_FILL);
 
-    camera->setPosZ(2000.f);
-    camera->setFOV(60.f);
+    camera->setPosZ(CAMERA_DISTANCE);
+    camera->setFOV(CAMERA_FOV);
     generateBoids();
 }
 
@@ -18,118 +38,111 @@ void BoidSimulation::render() {
     glClearColor(0.f, 0.f, 0.f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    drawBoids();
+    boid_shader_.activate();
+    boid_shader_.setUniform("projection_view", camera_->getProjectionViewMatrix());
+
+    glBindVertexArray(boid_model_.getVAO());
+    for (Boid& boid : boids_) {
+        drawBoid(boid.transform);
+    }
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glBindVertexArray(0);
 }
 
 void BoidSimulation::update(float delta_seconds) {
-    for (Boid& b: boids_) {
+    for (Boid& b : boids_) {
         Vector3 v = flyTowardsCenter(b);
         v += keepDistanceFromOthers(b);
         v += matchVelocity(b);
         v += keepInBounds(b);
 
-        b.velocity += v * 5 * delta_seconds;
+        b.velocity += v * ACCELERATION_MODIFIER * delta_seconds;
         clampVelocity(b);
 
-        b.updatePosition(10.f * delta_seconds);
+        b.updateRotation();
+        b.updatePosition(VELOCITY_MODIFIER * delta_seconds);
     }
 }
 
 Vector3 BoidSimulation::flyTowardsCenter(Boid& b) {
     Vector3 average {};
-    for (Boid& other: boids_) {
+    for (Boid& other : boids_) {
         if (other == b) continue;
         average += other.transform.getPosition();
     }
     average /= static_cast<float>(boids_.size() - 1);
 
-    return (average - b.transform.getPosition()) / 100.f;
+    return (average - b.transform.getPosition()) * FLY_TOWARDS_CENTER_STRENGTH;
 }
 
 Vector3 BoidSimulation::keepDistanceFromOthers(Boid& b) {
     Vector3 sum {};
-    for (Boid& other: boids_) {
+    for (Boid& other : boids_) {
         if (other == b) continue;
 
         Vector3 pos_diff = other.transform.getPosition() - b.transform.getPosition();
-        if (pos_diff.magnitude() > 100.f) continue;
+        if (pos_diff.magnitude() > KEEP_DISTANCE_CONSIDERATION_DISTANCE) continue;
 
         sum -= pos_diff;
     }
 
-    return sum / 10.f;
+    return sum * KEEP_DISTANCE_FROM_OTHERS_STRENGTH;
 }
 
 Vector3 BoidSimulation::matchVelocity(Boid& b) {
     Vector3 average {};
-    for (Boid& other: boids_) {
+    for (Boid& other : boids_) {
         if (other == b) continue;
         average += other.velocity;
     }
     average /= static_cast<float>(boids_.size() - 1);
 
-    return (average - b.velocity) / 8.f;
+    return (average - b.velocity) * MATCH_VELOCITY_STRENGTH;
 }
 
 Vector3 BoidSimulation::keepInBounds(Boid& b) {
     Vector3 velocity {};
     Vector3 pos = b.transform.getPosition();
 
-    float half_box_size = 200.f;
-    float bounds_strength = 10.f;
-
-    if (pos.x > half_box_size) {
-        velocity.x = -bounds_strength;
-    } else if (pos.x < -400.f) {
-        velocity.x = bounds_strength;
+    if (pos.x > HALF_BOUNDS_SIZE) {
+        velocity.x = -KEEP_IN_BOUNDS_STRENGTH;
+    } else if (pos.x < -HALF_BOUNDS_SIZE) {
+        velocity.x = KEEP_IN_BOUNDS_STRENGTH;
     }
-    if (pos.y > half_box_size) {
-        velocity.y = -bounds_strength;
-    } else if (pos.y < -200.f) {
-        velocity.y = bounds_strength;
+    if (pos.y > HALF_BOUNDS_SIZE) {
+        velocity.y = -KEEP_IN_BOUNDS_STRENGTH;
+    } else if (pos.y < -HALF_BOUNDS_SIZE) {
+        velocity.y = KEEP_IN_BOUNDS_STRENGTH;
     }
-    if (pos.z > half_box_size) {
-        velocity.z = -bounds_strength;
-    } else if (pos.z < half_box_size) {
-        velocity.z = bounds_strength;
+    if (pos.z > HALF_BOUNDS_SIZE) {
+        velocity.z = -KEEP_IN_BOUNDS_STRENGTH;
+    } else if (pos.z < HALF_BOUNDS_SIZE) {
+        velocity.z = KEEP_IN_BOUNDS_STRENGTH;
     }
     return velocity;
 }
 
 void BoidSimulation::clampVelocity(Boid& b) {
-    b.velocity.clamp(100.f);
+    b.velocity.clamp(MAX_VELOCITY);
 }
 
 void BoidSimulation::generateBoids() {
     std::random_device seed {};
     std::mt19937 generator {seed()};
-    std::uniform_real_distribution<> pos_range {-400, 400};
-    std::uniform_int_distribution<> velocity_range {-1, 1};
+    std::uniform_real_distribution<> pos_range {-HALF_SPAWN_AREA_SIZE, HALF_SPAWN_AREA_SIZE};
 
-    for (int i = 0; i < 500; ++i) {
+    for (int i = 0; i < N_BOIDS; ++i) {
         Boid& new_boid = boids_.emplace_back();
         new_boid.transform.setPosX(static_cast<float>(pos_range(generator)));
         new_boid.transform.setPosY(static_cast<float>(pos_range(generator)));
         new_boid.transform.setPosZ(static_cast<float>(pos_range(generator)));
 
-        new_boid.transform.setScale(15.f);
+        new_boid.transform.setScale(BOID_SIZE);
     }
 }
 
-void BoidSimulation::drawBoids() {
-    boid_shader_.activate();
-    boid_shader_.setUniform("projection_view", camera_->getProjectionViewMatrix());
-
-    glBindVertexArray(boid_model_.getVAO());
-    for (Boid& boid: boids_) {
-        drawBoid(boid);
-    }
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glBindVertexArray(0);
-}
-
-void BoidSimulation::drawBoid(Boid& boid) {
-    boid_shader_.setUniform("model", boid.transform.getMatrix());
+void BoidSimulation::drawBoid(Transform& t) {
+    boid_shader_.setUniform("model", t.getMatrix());
 
     boid_shader_.setUniform("color", 0.4, 0.0, 0.0, 1.0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

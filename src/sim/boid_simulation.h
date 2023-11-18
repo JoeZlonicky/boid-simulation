@@ -26,8 +26,7 @@ private:
 
     void generateBoids();
 
-    void drawBoids();
-    void drawBoid(Boid& boid);
+    void drawBoid(Transform& t);
 
     std::vector<Boid> boids_ {};
 
